@@ -6,6 +6,7 @@
     * [项目经历](info-and-guide/undefined/xiang-mu-jing-li.md)
   * [memo&question](info-and-guide/memo.md)
 * [Basic](stl/README.md)
+  * [刷题](stl/shua-ti.md)
   * [C++基础](stl/c++.md)
   * [STL](stl/stl.md)
   * [数据结构](stl/datastructure.md)
