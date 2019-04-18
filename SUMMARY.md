@@ -11,7 +11,9 @@
   * [STL](stl/stl.md)
   * [数据结构](stl/datastructure.md)
 * [计算机知识](op/README.md)
-  * [操作系统](op/op.md)
+  * [操作系统](op/op/README.md)
+    * [进程（process）与线程（thread）](op/op/jin-cheng-process-yu-xian-cheng-thread.md)
+    * [反码补码源码](op/op/fan-ma-bu-ma-yuan-ma.md)
   * [图形学](op/graphics.md)
   * [网络](op/network.md)
 
