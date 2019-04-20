@@ -1,6 +1,6 @@
 # 内存管理
 
-### 
+ref:[虚拟内存与物理内存的联系与区别](https://blog.csdn.net/lvyibin890/article/details/82217193)
 
 ### 逻辑地址/物理地址和虚拟内存。
 
