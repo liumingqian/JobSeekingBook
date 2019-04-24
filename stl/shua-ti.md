@@ -10,5 +10,11 @@
 
 计数排序 LeetCode 347. Top K Frequent Elements
 
-[https://www.acwing.com/solution/LeetCode/content/371/](https://www.acwing.com/solution/LeetCode/content/371/)
+{% embed url="https://www.acwing.com/solution/LeetCode/content/371/" %}
+
+
+
+{% embed url="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/" caption="34" %}
+
+
 
