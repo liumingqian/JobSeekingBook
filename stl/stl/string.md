@@ -1,3 +1,7 @@
+---
+description: 'ref: https://blog.csdn.net/u013834525/article/details/82533935'
+---
+
 # String
 
 ### 使用
@@ -19,6 +23,23 @@ int main()
 	cout << "str4的地址:" << (void*)str4 << endl;
 	return 0;
 }
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="常用功能" %}
+```cpp
+//截取子串
+string substr(size_t pos = 0, size_t len = npos);
+
+//合并
+//注意参数和返回值都是引用！
+string& append(const string& str);
+
+//IO
+//参数：std::cin,str,终结符，遇到该字符停止操作
+istream& getline(istream &is , string &str , char delim );
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -83,5 +104,7 @@ ss.str(s);//用字符串s填充ss
 
 ss << N;//向ss流中输入值
 ss >> str;//向str中写入
+
+ss.clear();//清除流中内容
 ```
 
