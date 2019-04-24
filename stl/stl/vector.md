@@ -1,5 +1,7 @@
 # Vector
 
+vector的内部数据结构是数组.
+
 #### 使用
 
 {% code-tabs %}
