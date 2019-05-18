@@ -13,6 +13,8 @@
     * [Vector](stl/stl/vector.md)
   * [数据结构](stl/datastructure.md)
 * [算法设计](suan-fa-she-ji/README.md)
+  * [贪心](suan-fa-she-ji/tan-xin.md)
+  * [二分法](suan-fa-she-ji/er-fen-fa.md)
   * [动态规划](suan-fa-she-ji/dong-tai-gui-hua.md)
 * [计算机知识](op/README.md)
   * [操作系统](op/op/README.md)

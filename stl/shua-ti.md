@@ -1,21 +1,26 @@
 # 刷题
 
+#### 刷题考试概览
+
+* 2、30种知识点，每种刷10道题，总共200-300道题就差不多了，笔试题比较难，刚开始一道题刷一小时很正常。 10%时间理解思路，30%被代码，60%刷题
+* 三小时三道题+20选择，主要是套路，多练，背熟模板，就好很多
+* 一般ACM或者笔试题的时间限制是1秒或2秒。 在这种情况下，C++代码中的操作次数控制在 107-108 为最佳。
+
 #### 技巧和注意事项
 
 * size\_t是unsigned int
 *  2的16次方字节=_64MB_
+* 加两个哨兵可以避免处理边界问题
 
 #### 经典题集锦
 
-滑雪：[https://leetcode.com/problems/longest-increasing-path-in-a-matrix/description/](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/description/)
+
 
 计数排序 LeetCode 347. Top K Frequent Elements
 
 {% embed url="https://www.acwing.com/solution/LeetCode/content/371/" %}
 
 
-
-{% embed url="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/" caption="34" %}
 
 
 
