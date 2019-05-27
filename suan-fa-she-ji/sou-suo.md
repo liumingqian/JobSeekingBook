@@ -1,4 +1,4 @@
-# 搜索
+# \*搜索
 
 深搜和宽搜
 
@@ -14,6 +14,22 @@
   * dfs:
 
     * 树形：求[最小深度](https://leetcode.com/problems/minimum-depth-of-binary-tree/description/)、[二叉树直径](https://leetcode.com/problems/diameter-of-binary-tree/description/)等
+    * 字符串：[全排列](https://leetcode.com/problems/permutations/)\(回溯）、[去重全排列](https://www.cnblogs.com/zhizhizhiyuan/p/3821442.html)
 * 注意：
   * dfs:递归层数太多有爆栈的风险
+* 模板
+
+```cpp
+ void dfs()
+    {
+        if(expression1)//终止条件
+            do something
+        for(int i=0;i<N;i++)
+        {
+            if(expression2)//剪枝条件
+                do something
+            dfs();
+        }
+    }
+```
 
