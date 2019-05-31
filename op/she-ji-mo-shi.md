@@ -4,14 +4,22 @@
 
 《设计模式之禅》23中设计模式
 
-![](../.gitbook/assets/image%20%281%29.png)
+![](../.gitbook/assets/image%20%282%29.png)
 
 \*\*\*\*
 
 ### **单例模式**
 
-**描述**： 构造函数私有化，避免被其他函数调用。客户端通过getInstance的方式调用。  
-**优点**：避免对资源的多重占用，节约内存，可以设置全局访问点，优化共享资源访问。 **缺点**：扩展困难，可能与单一职责原则有冲突。 **使用场景**:要求对象必须唯一；整个项目需要一个共享访问点；创造对象消耗很多资源；需要定义大量静态常量和方法（也可以直接声明为static） **注意事项**：在高并发情况下应当注意单例模式的线程同步问题。如线程a和b同时执行，都判断到singleton==null，会使线程中同时存在多个对象。
+ 构造函数私有化，避免被其他函数调用。客户端通过getInstance的方式调用。
+
+  
+**优点**：避免对资源的多重占用，节约内存，可以设置全局访问点，优化共享资源访问。
+
+ **缺点**：扩展困难，可能与单一职责原则有冲突。 
+
+**使用场景**:要求对象必须唯一；整个项目需要一个共享访问点；创造对象消耗很多资源；需要定义大量静态常量和方法（也可以直接声明为static） 
+
+**注意事项**：在高并发情况下应当注意单例模式的线程同步问题。如线程a和b同时执行，都判断到singleton==null，会使线程中同时存在多个对象。
 
 **c\#实现**：
 
@@ -55,23 +63,11 @@ Singleton* getInstance()
 }
 ```
 
-### **抽象工厂模式**
-
-**描述**：提供一个创建一系列相关或相互依赖对象的接口，只需要知道工厂方法，无需知道具体实现类。
-
-**优点**：
-
-**缺点**：
-
-**使用场景**：系统有多个产品族，系统只消费其中某一族的产品。一个工厂定义多个同类产品。
-
-**注意事项**：
-
-**实现**：
+\*\*\*\*
 
 ### **Bridge模式\(接口与实现分离\)**
 
-**描述**：①C++中的接口一般设计为不包含成员变量的抽象类，如果接口类中包含了成员变量，接口与实现就混合在了一起，会给派生带来麻烦（不管愿不愿意，子类必须接受父类的成员变量）。②声明一个和实现类接口完全相同的类，这样用指针引用该类的时候客户端不用重新编译，直接替换dll就行
+①C++中的接口一般设计为不包含成员变量的抽象类，如果接口类中包含了成员变量，接口与实现就混合在了一起，会给派生带来麻烦（不管愿不愿意，子类必须接受父类的成员变量）。②声明一个和实现类接口完全相同的类，这样用指针引用该类的时候客户端不用重新编译，直接替换dll就行
 
 **方法**：父类声明为只包含接口的抽象类，子类继承父类接口，并增加自己的接口，再用实现类继承子类，去实现子类接口
 
@@ -80,8 +76,6 @@ Singleton* getInstance()
 **缺点**：每个实现类都要实现一遍接口的成员函数，比较繁琐。
 
 **使用场景**： 隐藏抽象时间、共享实现或引用计数。
-
-**注意事项**：
 
 **实现**：
 
@@ -167,9 +161,96 @@ public class ShapeFactory {
 }
 ```
 
+### 迭代器模式
+
+迭代器模式就是分离了集合对象的遍历行为，抽象出一个迭代器类来负责，这样既可以做到不暴露集合的内部结构，又可让外部代码透明地访问集合内部的数据。
+
+```cpp
+void RenderTree::ForEach(std::function<void(RenderNode * const)> func)
+	{
+		for (auto & node : _renderNode)
+		{
+			func(node.second.get());
+		}
+	}
+ //forEach函数定义↑，调用↓
+ std::function<void(StaticRenderer::RenderNode* const)> func = [&](StaticRenderer::RenderNode* const node) {
+		::glLoadName(node->GetID());
+		ModelManager::DrawAABB(node, viewMat, newproject);
+	};
+	StaticRenderer::RenderTree::GetInstance()->ForEach(func);
+```
 
 
 
+### 观察者模式
+
+![](../.gitbook/assets/image%20%2810%29.png)
+
+**优点**：观察者和抽象者不直接耦合
+
+**注意**：观察者和被观察者不能循环依赖！
+
+
+
+### MVC 模式
+
+MVC 模式代表 Model-View-Controller（模型-视图-控制器） 模式。这种模式用于应用程序的分层开发。
+
+* **Model（模型）** - 模型代表一个存取数据的对象。它也可以带有逻辑，在数据变化时更新控制器。
+* **View（视图）** - 视图代表模型包含的数据的可视化。
+* **Controller（控制器）** - 控制器作用于模型和视图上。它控制数据流向模型对象，并在数据变化时更新视图。它使视图与模型分离开。
+
+
+
+![](../.gitbook/assets/image.png)
+
+实现：
+
+```cpp
+//model 类
+public class Student {
+   private String name;
+
+   public String getName() {
+      return name;
+   }
+   public void setName(String name) {
+      this.name = name;
+   }
+}
+
+//view 类
+public class StudentView {
+   public void printStudentDetails(String studentName, String studentRollNo){
+      System.out.println("Student: ");
+      System.out.println("Name: " + studentName);
+   }
+}
+
+//controller类
+public class StudentController {
+   private Student model;
+   private StudentView view;
+ 
+   public StudentController(Student model, StudentView view){
+      this.model = model;
+      this.view = view;
+   }
+ 
+   public void setStudentName(String name){   //通过controller控制model类
+      model.setName(name);    
+   }
+ 
+   public String getStudentName(){      //通过controller控制model类
+      return model.getName();    
+   }
+
+   public void updateView(){           
+      view.printStudentDetails(model.getName(), model.getRollNo());
+   }  
+}
+```
 
 **参考资料**：
 
@@ -177,4 +258,5 @@ public class ShapeFactory {
 * 秦小波《设计模式之禅》
 * [https://blog.csdn.net/fly542/article/details/6720217](https://blog.csdn.net/fly542/article/details/6720217) 设计模式----Bridge模式
 * [https://blog.csdn.net/calmreason/article/details/53534766 ](https://blog.csdn.net/calmreason/article/details/53534766%20)C++设计：接口与实现分离
+* 自己的游戏设计模式 xmind笔记
 
