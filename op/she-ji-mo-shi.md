@@ -1,3 +1,7 @@
+---
+description: 主要包括面试时常考的设计模式
+---
+
 # 设计模式
 
 [《设计模式之禅》六个设计原则](https://blog.csdn.net/qq_24634505/article/details/80776964)
@@ -263,11 +267,75 @@ public class StudentController {
 }
 ```
 
-### **访问者模式**
+### **代理模式**
 
-**适用场景**：将数据结构与数据操作分离，解决稳定的数据结构和很多不同且不相干的操作的耦合问题。
+**适用场景**：解决接访问对象时出现的问题，如，要访问的对象在远程机器上、创建开销很大、需要安全控制等，直接访问给使用者或系统结构带来麻烦时，在对象上加上一个对此对象的访问层（中介）
 
+**优点**：职责清晰，高扩展性
 
+ **注意事项：** 1、和适配器模式的区别：适配器模式主要改变所考虑对象的接口，而代理模式不能改变所代理类的接口。 2、和装饰器模式的区别：装饰器模式为了增强功能，而代理模式是为了加以控制。
+
+**实例**：猪八戒去找高翠兰结果是孙悟空变的，可以这样理解：把高翠兰的外貌抽象出来，高翠兰本人和孙悟空都实现了这个接口，猪八戒访问高翠兰的时候看不出来这个是孙悟空，所以说孙悟空是高翠兰代理类
+
+```java
+//需要代理实现display方法
+public interface Image {
+   void display();
+}
+//被代理的实体要继承接口，实现这个display方法
+public class RealImage implements Image {
+ 
+   private String fileName;
+ 
+   public RealImage(String fileName){
+      this.fileName = fileName;
+      loadFromDisk(fileName);
+   }
+ 
+   @Override
+   public void display() {
+      System.out.println("Displaying " + fileName);
+   }
+ 
+   private void loadFromDisk(String fileName){
+      System.out.println("Loading " + fileName);
+   }
+}
+
+//代理类继承接口，管理实体类对象，调用实体类对象的方法
+public class ProxyImage implements Image{
+ 
+   private RealImage realImage;
+  
+   @Override
+   public void display() {
+      if(realImage == null){
+         realImage = new RealImage(fileName);
+      }
+      realImage.display();
+   }
+}
+
+//调用
+public class ProxyPatternDemo {
+   
+   public static void main(String[] args) {
+      Image image = new ProxyImage("test_10mb.jpg");
+ 
+      // 图像将从磁盘加载
+      image.display(); 
+      System.out.println("");
+      // 图像不需要从磁盘加载
+      image.display();  
+   }
+}
+```
+
+### 适配器模式
+
+### 装饰器模式
+
+### 建造者模式
 
 ### **享元模式**
 
