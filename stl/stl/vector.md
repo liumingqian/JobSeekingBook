@@ -22,8 +22,6 @@ vector<int> list(7);
 //list包含7个元素，用3初始化
 vector<int> list(7,3);
 
-sort(list.begin(),list.end());
-unique(list.begin(),list.end());
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -60,6 +58,11 @@ v.end();
 std::reverse(myvector.begin(),myvector.end());   
 //排序
 std::sort(v.begin(),v.end());
+//删除重复元素
+//unique不实际上删除元素，而是把所有无重复的元素排到数组前面，
+//返回的迭代器指向超出无重复的元素范围末端的下一个位置
+c.erase(unique(c.begin(), c.end())c.end());
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

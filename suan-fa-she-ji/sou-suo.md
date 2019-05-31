@@ -7,6 +7,8 @@
   * bfs:2\*n
   * dfs:n
 
+* 问题特点：
+  * 求问题的所有解
 * 题型
   * bfs:有最小，最近等特性，可以解决最短路，[最小步数](https://www.acwing.com/solution/LeetCode/content/425/)等问题
     * 矩阵型：[连通区域个数](https://leetcode.com/problems/number-of-islands/description/)，泛滥填充等
