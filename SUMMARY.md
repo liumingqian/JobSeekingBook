@@ -18,6 +18,7 @@
   * [贪心](suan-fa-she-ji/tan-xin.md)
   * [二分法](suan-fa-she-ji/er-fen-fa.md)
   * [动态规划](suan-fa-she-ji/dong-tai-gui-hua.md)
+  * [图](suan-fa-she-ji/tu.md)
 * [计算机知识](op/README.md)
   * [操作系统](op/op/README.md)
     * [内存管理](op/op/nei-cun-guan-li.md)
