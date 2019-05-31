@@ -4,6 +4,12 @@
 
 [《设计模式之禅》23中设计模式](https://blog.csdn.net/ls0111/article/details/80277950)
 
+#### **设计模式分类**
+
+* 创造类：用于创建对象的模式
+* 行为类：适用于特定行为场景的模式
+* 结构类：描述对象间组织结构的模式
+
 ### **单例模式**
 
  构造函数私有化，避免被其他函数调用。客户端通过getInstance的方式调用。
@@ -107,6 +113,8 @@ Impl::Smiley -> Impl::Circle -> Impl::Shape
  **实现**：
 
 ```java
+//简单工厂模式
+
 public class ShapeFactory {
     
    //使用 getShape 方法获取形状类型的对象
@@ -123,6 +131,20 @@ public class ShapeFactory {
       }
       return null;
    }
+}
+
+//工厂方法
+//和简单工厂的一些区别就是 不需要使用字符串来判断创建类型，避免传入字符串不对导致无法创建对象
+//                     使用static，不用创建工厂对象
+
+class SenderFactory {
+    public static Sender produceEmail() {
+        return new EmailSender();
+    }
+
+    public static Sender produceSMS() {
+        return new SMSSender();
+    }
 }
 ```
 
@@ -240,6 +262,16 @@ public class StudentController {
    }
 }
 ```
+
+### **访问者模式**
+
+**适用场景**：将数据结构与数据操作分离，解决稳定的数据结构和很多不同且不相干的操作的耦合问题。
+
+
+
+### **享元模式**
+
+\*\*\*\*
 
 ### **游戏循环**
 
