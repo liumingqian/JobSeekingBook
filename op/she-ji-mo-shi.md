@@ -2,62 +2,27 @@
 
 [《设计模式之禅》六个设计原则](https://blog.csdn.net/qq_24634505/article/details/80776964)
 
-《设计模式之禅》23中设计模式
-
-![](../.gitbook/assets/image%20%282%29.png)
-
-\*\*\*\*
+[《设计模式之禅》23中设计模式](https://blog.csdn.net/ls0111/article/details/80277950)
 
 ### **单例模式**
 
  构造函数私有化，避免被其他函数调用。客户端通过getInstance的方式调用。
 
-  
 **优点**：避免对资源的多重占用，节约内存，可以设置全局访问点，优化共享资源访问。
 
- **缺点**：扩展困难，可能与单一职责原则有冲突。 
+**缺点**：扩展困难，可能与单一职责原则有冲突。 
 
 **使用场景**:要求对象必须唯一；整个项目需要一个共享访问点；创造对象消耗很多资源；需要定义大量静态常量和方法（也可以直接声明为static） 
 
 **注意事项**：在高并发情况下应当注意单例模式的线程同步问题。如线程a和b同时执行，都判断到singleton==null，会使线程中同时存在多个对象。
 
-**c\#实现**：
-
-```text
-    /// <summary>
-    /// 单例模式的实现
-    /// </summary>
-    public class Singleton
-    {
-        private static Singleton instance;
-        /// <summary>
-        ///构造函数私有化
-        /// </summary>
-        private Singleton()
-        {
-        }
-
-        /// <summary>
-        /// 定义公有方法或属性提供全局访问点
-        /// </summary>
-        public static Singleton GetInstance()
-        {
-            if (instance == null)
-            {
-                instance = new Singleton();
-            }
-            return instance;
-        }
-    }
-```
-
 **c++实现**：
 
-```text
+```cpp
 Singleton* getInstance()
 {
     if (instance == NULL)
-        instance = new Singleton();
+        instance = new Singleton();   //构造函数私有化，对外提供getInstance接口
 
     return instance;
 }
@@ -185,7 +150,7 @@ void RenderTree::ForEach(std::function<void(RenderNode * const)> func)
 
 ### 观察者模式
 
-![](../.gitbook/assets/image%20%2810%29.png)
+![](../.gitbook/assets/image%20%2811%29.png)
 
 **优点**：观察者和抽象者不直接耦合
 
@@ -205,7 +170,7 @@ MVC 模式代表 Model-View-Controller（模型-视图-控制器） 模式。这
 
 ![](../.gitbook/assets/image.png)
 
-实现：
+**实现**：
 
 ```cpp
 //model 类
@@ -238,11 +203,11 @@ public class StudentController {
       this.view = view;
    }
  
-   public void setStudentName(String name){   //通过controller控制model类
+   public void setStudentName(String name){   //user通过controller控制model类
       model.setName(name);    
    }
  
-   public String getStudentName(){      //通过controller控制model类
+   public String getStudentName(){      //user通过controller控制model类
       return model.getName();    
    }
 
@@ -252,6 +217,34 @@ public class StudentController {
 }
 ```
 
+### **命令模式**
+
+![](../.gitbook/assets/image%20%289%29.png)
+
+#### **实现：**
+
+```cpp
+  //命令调用类
+ public class Broker {
+   private List<Order> orderList = new ArrayList<Order>(); 
+ 
+   public void takeOrder(Order order){         //接受命令
+      orderList.add(order);      
+   }
+ 
+   public void placeOrders(){               //执行命令
+      for (Order order : orderList) {
+         order.execute();
+      }
+      orderList.clear();
+   }
+}
+```
+
+### **游戏循环**
+
+![](../.gitbook/assets/image%20%2815%29.png)
+
 **参考资料**：
 
 * [http://www.runoob.com/design-pattern/design-pattern-tutorial.html](http://www.runoob.com/design-pattern/design-pattern-tutorial.html) RUNOOB设计模式教程
@@ -259,4 +252,5 @@ public class StudentController {
 * [https://blog.csdn.net/fly542/article/details/6720217](https://blog.csdn.net/fly542/article/details/6720217) 设计模式----Bridge模式
 * [https://blog.csdn.net/calmreason/article/details/53534766 ](https://blog.csdn.net/calmreason/article/details/53534766%20)C++设计：接口与实现分离
 * 自己的游戏设计模式 xmind笔记
+* 自己的ECS架构笔记
 
