@@ -14,6 +14,8 @@
     * [Vector](stl/stl/vector.md)
   * [数据结构](stl/datastructure.md)
 * [算法设计](suan-fa-she-ji/README.md)
+  * [算法复杂度分析](suan-fa-she-ji/suan-fa-fu-za-du-fen-xi.md)
+  * [排序](suan-fa-she-ji/pai-xu.md)
   * [\*搜索](suan-fa-she-ji/sou-suo.md)
   * [贪心](suan-fa-she-ji/tan-xin.md)
   * [二分法](suan-fa-she-ji/er-fen-fa.md)

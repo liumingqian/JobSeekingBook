@@ -41,7 +41,7 @@ RPC要解决的两个问题：
 
 ![&#x672C;&#x5730;&#x8FC7;&#x7A0B;&#x8C03;&#x7528;](../.gitbook/assets/image%20%283%29.png)
 
-![RPC](../.gitbook/assets/image%20%2810%29.png)
+![RPC](../.gitbook/assets/image%20%2811%29.png)
 
 一个完整的RPC流程，可以用下面这张图来描述：  
 

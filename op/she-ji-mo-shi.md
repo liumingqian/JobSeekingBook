@@ -176,7 +176,7 @@ void RenderTree::ForEach(std::function<void(RenderNode * const)> func)
 
 ### 观察者模式
 
-![](../.gitbook/assets/image%20%2811%29.png)
+![](../.gitbook/assets/image%20%2812%29.png)
 
 **优点**：观察者和抽象者不直接耦合
 
@@ -245,7 +245,7 @@ public class StudentController {
 
 ### **命令模式**
 
-![](../.gitbook/assets/image%20%289%29.png)
+![](../.gitbook/assets/image%20%2810%29.png)
 
 #### **实现：**
 
@@ -343,7 +343,7 @@ public class ProxyPatternDemo {
 
 ### **游戏循环**
 
-![](../.gitbook/assets/image%20%2815%29.png)
+![](../.gitbook/assets/image%20%2816%29.png)
 
 **参考资料**：
 

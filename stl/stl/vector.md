@@ -58,6 +58,9 @@ v.end();
 std::reverse(myvector.begin(),myvector.end());   
 //排序
 std::sort(v.begin(),v.end());
+//删除
+iterator erase(iterator position);
+iterator erase(iterator first, iterator last);
 //删除重复元素
 //unique不实际上删除元素，而是把所有无重复的元素排到数组前面，
 //返回的迭代器指向超出无重复的元素范围末端的下一个位置
