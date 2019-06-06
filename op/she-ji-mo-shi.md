@@ -152,6 +152,110 @@ class SenderFactory {
 }
 ```
 
+### 
+
+### **命令模式**
+
+![](../.gitbook/assets/image%20%2810%29.png)
+
+#### **实现：**
+
+```cpp
+  //命令调用类
+ public class Broker {
+   private List<Order> orderList = new ArrayList<Order>(); 
+ 
+   public void takeOrder(Order order){         //接受命令
+      orderList.add(order);      
+   }
+ 
+   public void placeOrders(){               //执行命令
+      for (Order order : orderList) {
+         order.execute();
+      }
+      orderList.clear();
+   }
+}
+```
+
+### **代理模式**
+
+**适用场景**：解决接访问对象时出现的问题，如，要访问的对象在远程机器上、创建开销很大、需要安全控制等，直接访问给使用者或系统结构带来麻烦时，在对象上加上一个对此对象的访问层（中介）
+
+**优点**：职责清晰，高扩展性
+
+**注意事项：** 1、和适配器模式的区别：适配器模式主要改变所考虑对象的接口，而代理模式不能改变所代理类的接口。 2、和装饰器模式的区别：装饰器模式为了增强功能，而代理模式是为了加以控制。
+
+**实例**：猪八戒去找高翠兰结果是孙悟空变的，可以这样理解：把高翠兰的外貌抽象出来，高翠兰本人和孙悟空都实现了这个接口，猪八戒访问高翠兰的时候看不出来这个是孙悟空，所以说孙悟空是高翠兰代理类
+
+```java
+//需要代理实现display方法
+public interface Image {
+   void display();
+}
+//被代理的实体要继承接口，实现这个display方法
+public class RealImage implements Image {
+ 
+   private String fileName;
+ 
+   public RealImage(String fileName){
+      this.fileName = fileName;
+      loadFromDisk(fileName);
+   }
+ 
+   @Override
+   public void display() {
+      System.out.println("Displaying " + fileName);
+   }
+ 
+   private void loadFromDisk(String fileName){
+      System.out.println("Loading " + fileName);
+   }
+}
+
+//代理类继承接口，管理实体类对象，调用实体类对象的方法
+public class ProxyImage implements Image{
+ 
+   private RealImage realImage;
+  
+   @Override
+   public void display() {
+      if(realImage == null){
+         realImage = new RealImage(fileName);
+      }
+      realImage.display();
+   }
+}
+
+//调用
+public class ProxyPatternDemo {
+   
+   public static void main(String[] args) {
+      Image image = new ProxyImage("test_10mb.jpg");
+ 
+      // 图像将从磁盘加载
+      image.display(); 
+      System.out.println("");
+      // 图像不需要从磁盘加载
+      image.display();  
+   }
+}
+```
+
+### 适配器模式
+
+将一个类的接口转换成客户希望的另外一个接口，使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。
+
+**缺点**：让系统凌乱，如果不是很有必要，可以不使用适配器，而是直接对系统进行重构
+
+### 装饰器模式
+
+### 建造者模式
+
+### **享元模式**
+
+\*\*\*\*
+
 ### 迭代器模式
 
 迭代器模式就是分离了集合对象的遍历行为，抽象出一个迭代器类来负责，这样既可以做到不暴露集合的内部结构，又可让外部代码透明地访问集合内部的数据。
@@ -242,104 +346,6 @@ public class StudentController {
    }  
 }
 ```
-
-### **命令模式**
-
-![](../.gitbook/assets/image%20%2810%29.png)
-
-#### **实现：**
-
-```cpp
-  //命令调用类
- public class Broker {
-   private List<Order> orderList = new ArrayList<Order>(); 
- 
-   public void takeOrder(Order order){         //接受命令
-      orderList.add(order);      
-   }
- 
-   public void placeOrders(){               //执行命令
-      for (Order order : orderList) {
-         order.execute();
-      }
-      orderList.clear();
-   }
-}
-```
-
-### **代理模式**
-
-**适用场景**：解决接访问对象时出现的问题，如，要访问的对象在远程机器上、创建开销很大、需要安全控制等，直接访问给使用者或系统结构带来麻烦时，在对象上加上一个对此对象的访问层（中介）
-
-**优点**：职责清晰，高扩展性
-
- **注意事项：** 1、和适配器模式的区别：适配器模式主要改变所考虑对象的接口，而代理模式不能改变所代理类的接口。 2、和装饰器模式的区别：装饰器模式为了增强功能，而代理模式是为了加以控制。
-
-**实例**：猪八戒去找高翠兰结果是孙悟空变的，可以这样理解：把高翠兰的外貌抽象出来，高翠兰本人和孙悟空都实现了这个接口，猪八戒访问高翠兰的时候看不出来这个是孙悟空，所以说孙悟空是高翠兰代理类
-
-```java
-//需要代理实现display方法
-public interface Image {
-   void display();
-}
-//被代理的实体要继承接口，实现这个display方法
-public class RealImage implements Image {
- 
-   private String fileName;
- 
-   public RealImage(String fileName){
-      this.fileName = fileName;
-      loadFromDisk(fileName);
-   }
- 
-   @Override
-   public void display() {
-      System.out.println("Displaying " + fileName);
-   }
- 
-   private void loadFromDisk(String fileName){
-      System.out.println("Loading " + fileName);
-   }
-}
-
-//代理类继承接口，管理实体类对象，调用实体类对象的方法
-public class ProxyImage implements Image{
- 
-   private RealImage realImage;
-  
-   @Override
-   public void display() {
-      if(realImage == null){
-         realImage = new RealImage(fileName);
-      }
-      realImage.display();
-   }
-}
-
-//调用
-public class ProxyPatternDemo {
-   
-   public static void main(String[] args) {
-      Image image = new ProxyImage("test_10mb.jpg");
- 
-      // 图像将从磁盘加载
-      image.display(); 
-      System.out.println("");
-      // 图像不需要从磁盘加载
-      image.display();  
-   }
-}
-```
-
-### 适配器模式
-
-### 装饰器模式
-
-### 建造者模式
-
-### **享元模式**
-
-\*\*\*\*
 
 ### **游戏循环**
 
