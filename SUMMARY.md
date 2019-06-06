@@ -31,4 +31,7 @@
   * [图形学](op/graphics.md)
   * [网络](op/network.md)
   * [设计模式](op/she-ji-mo-shi.md)
+* [数学](shu-xue/README.md)
+  * [数学技巧](shu-xue/shu-xue-ji-qiao.md)
+  * [概率论](shu-xue/gai-lv-lun.md)
 
