@@ -62,7 +62,7 @@ for(int i=0;i<N;i++)
 //或 接上 01背包思路
 for(int i=0;i<N;i++)
 {
-    for(int j=v[i];j<;j-++)//从前往后遍历可以用到重复物品
+    for(int j=v[i];j<;j++)//从前往后遍历可以用到重复物品
         f[j]=max(f[j],f[j-v[i]]+w[i]);
 }
 ```
