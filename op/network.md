@@ -24,6 +24,14 @@
 
 一种传输层协议
 
+UDP
+
+TCP和UDP的区别
+
+TCP和UDP的应用场景
+
+time\_wait状态
+
 #### HTTP协议
 
 短链接
@@ -60,5 +68,5 @@ RPC要解决的两个问题：
 7. service B的stub解析请求对象，知道调用方要调的是哪个RPC接口，传进来的参数又是什么，然后再把这些参数传给对应的RPC接口，也就是Calculator的实际实现类去执行。很明显，如果是Java，那这里肯定用到了**反射**。
 8. RPC接口执行完毕，返回执行结果，Service B以同样的流程把数据发给Service A，Service A反序列化执行结果 ，将结果返回给Application。
 
-
+浏览器输入一个地址回车之后都发生了啥？
 
