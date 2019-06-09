@@ -34,3 +34,11 @@ int gcd(int a, int b)
 
 ```
 
+#### 计算除法上取整
+
+```cpp
+int ceil = (x+n-1)/n;
+```
+
+
+
