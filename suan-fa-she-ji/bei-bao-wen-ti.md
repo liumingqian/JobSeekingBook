@@ -71,5 +71,11 @@ for(int i=0;i<N;i++)
 
 ```text
 //比01背包多循环一层物品个数就行了
+for(int i=0;i<N;i++)
+{
+    for(int j=V;j>=v[i];j--)    //从后往前遍历
+    {
+        for(int k=1;k<=s[i]&&f[j]=max(f[j],f[j-v[i]]+w[i]);
+}
 ```
 

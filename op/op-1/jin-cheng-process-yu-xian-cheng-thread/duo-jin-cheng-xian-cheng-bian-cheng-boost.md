@@ -104,7 +104,7 @@ int main(int argc,char* argv[])
 
 **读写锁的实现**
 
-```text
+```cpp
 typedef boost::shared_lock<boost::shared_mutex> readLock;
 typedef boost::unique_lock<boost::shared_mutex> writeLock;
 boost::shared_mutex rwmutex;

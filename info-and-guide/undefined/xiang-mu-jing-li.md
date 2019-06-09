@@ -2,7 +2,9 @@
 
 **数学库更换**：从核心类向外一圈一圈改，先把类里面的都改掉然后改接口，这样中间有很多可编译版本。CDVector用一个union保存struct{x,y,z}struct{X,Y,Z}、T mfecv\[3\],以满足多种数据需求，重载了各种运算符。
 
+#### 多线程编程
 
+TiledViewport：：SharedMemoryCmd 用于向无人机主控发送命令的共享内存类
 
 ### **调试方法**
 
