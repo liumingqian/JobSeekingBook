@@ -86,7 +86,7 @@ struct classcomp {
 
 ## Unordered\_map
 
-unordered\_map底层由HashTable实现。
+unordered\_map底层由HashTable实现。从查找、插入上来说，unordered\_map的效率优于hash\_map，更优于map。
 
 #### 自定义键值
 
@@ -135,4 +135,6 @@ namespace std
 ```
 
 ## hash\_map
+
+空间复杂度方面，hash\_map最低，unordered\_map次之，map最大。
 
