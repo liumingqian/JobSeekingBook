@@ -4,11 +4,13 @@ description: 关联容器的特点是增加和删除节点对迭代器的影响�
 
 # 关联容器
 
-## 
+## Set
+
+红黑树实现。
 
 ## Map
 
-map存储结构是红黑树，所以需要定义比较函数（less），查找效率为O\(logN\)。对map进行遍历（红黑树的中序遍历）时，输出的结果是有序的。
+map存储结构是[红黑树](../../suan-fa-she-ji/shu.md#hong-hei-shu)，所以需要定义比较函数（less），查找效率为O\(logN\)。对map进行遍历（红黑树的中序遍历）时，输出的结果是有序的。map中节点的构造调用拷贝构造函数。
 
 {% code-tabs %}
 {% code-tabs-item title="使用" %}
@@ -63,7 +65,7 @@ size_t erase(const key_type& key);
 
 #### 自定义键值
 
-如果使用了自定义的数据结构作为key，需要提供一个比较函数。map比对键值的时候调用该函数进行判断，如果\(!a&lt;b\)&&\(!b&lt;a\)就会被认为a==b。
+如果使用了自定义的数据结构作为key，需要提供一个比较函数。map比对键值的时候调用该函数进行判断，如果\(!a&lt;b\)&&\(!b&lt;a\)就会被认为a==b。\(因此相等的元素应当返回false\)
 
 {% code-tabs %}
 {% code-tabs-item title="自定义比较函数" %}
@@ -86,7 +88,15 @@ struct classcomp {
 
 ## Unordered\_map
 
-unordered\_map底层由HashTable实现。从查找、插入上来说，unordered\_map的效率优于hash\_map，更优于map。
+unordered\_map底层由HashTable（哈希桶）实现，数据插入和查找的时间复杂度几乎是常数时间，代价是消耗比较多的内存。底层实现上，使用一个下标范围比较大的数组来存储元素，形成很多的桶（桶里可能是vector\)，利用hash函数对key进行映射到不同区域进行保存。unordered\_map查找插入的效率优于map。
+
+其取值过程是:
+
+1. 得到key
+2. 通过hash函数得到hash值
+3. 得到桶号\(一般都为hash值对桶数求模\)
+4. 比较桶的内部元素是否与key相等，若都不相等，则没有找到。 
+5. 取出key相等的元素的value。
 
 #### 自定义键值
 
@@ -136,5 +146,11 @@ namespace std
 
 ## hash\_map
 
-空间复杂度方面，hash\_map最低，unordered\_map次之，map最大。
+不是标准库里的
+
+```cpp
+#include<ext/hash_map>
+```
+
+空间复杂度hash\_map最低，unordered\_map次之，map最大。
 

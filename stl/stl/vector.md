@@ -224,7 +224,7 @@ list可以用于解决约瑟夫环问题。
 
 ## priority\_queue
 
-priority\_queue无法遍历
+priority\_queue无法遍历。
 
 ```cpp
 //priority_queue模板有三个参数，默认存储元素的容器是vector，建立的是大根堆
