@@ -17,7 +17,32 @@ int& a[3];//error
 int (&array)[10];//首先是个引用，指向大小为10的int数组
 ```
 
+#### 右值引用
 
+ref：[从四行代码看右值引用](https://www.cnblogs.com/qicosmos/p/4283455.html)
+
+解决的问题：
+
+* 为临时对象[延长生存期](https://zh.cppreference.com/w/cpp/language/reference_initialization#.E4.B8.B4.E6.97.B6.E9.87.8F.E7.94.9F.E5.AD.98.E6.9C.9F)，避免临时对象的拷贝操作。
+* 在模板参数中按参数的实际类型进行转发
+
+到const的左值引用也可以延长对象生存期，但是不能修改了
+
+```cpp
+const int& r2 = 6; // okay ：到 const 的左值引用延长生存期 
+r2 += 3; // 错误：不能通过到 const 的引用修改
+
+string&& r3 = s1 + s1;      // okay ：右值引用延长生存期
+r3 += "Test";               // okay ：能通过右值引用修改
+T&& k = getVar();            //okay：避免了对象拷贝
+```
+
+右值引用不能绑定到左值。
+
+```cpp
+string s1 = "Test";	     //左值
+string&& r1 = s1;        // 错误：不能绑定到左值
+```
 
 ### 指针和引用
 
