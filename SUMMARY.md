@@ -8,6 +8,8 @@
   * [刷题](info-and-guide/shua-ti.md)
 * [Basic](stl/README.md)
   * [C++基础](stl/c++/README.md)
+    * [内存管理](stl/c++/nei-cun-guan-li.md)
+    * [类](stl/c++/lei.md)
     * [引用、指针、数组](stl/c++/yin-yong-zhi-zhen-shu-zu.md)
     * [高级特性](stl/c++/gao-ji-te-xing.md)
     * [字符串](stl/c++/zi-fu-chuan.md)

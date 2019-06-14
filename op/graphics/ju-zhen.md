@@ -8,7 +8,7 @@
 
 ### 平移
 
-![](../../.gitbook/assets/image%20%2840%29.png)
+![](../../.gitbook/assets/image%20%2841%29.png)
 
 ### 旋转
 
@@ -16,7 +16,7 @@
 
 ### 缩放
 
-![](../../.gitbook/assets/image%20%2851%29.png)
+![](../../.gitbook/assets/image%20%2852%29.png)
 
 ### 齐次坐标
 
