@@ -10,5 +10,5 @@ T（n）≤4（2T（n/8）+n/4） +2n=8T（n/8）+3n
 ……  
 T（n）≤nT（1）+（log2n）×n= O\(nlogn\)
 
-![](../.gitbook/assets/image%20%2827%29.png)
+![](../.gitbook/assets/image%20%2828%29.png)
 

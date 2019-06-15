@@ -2,23 +2,23 @@
 
 ### 排列组合
 
-![](../.gitbook/assets/image%20%285%29.png)
+![](../.gitbook/assets/image%20%286%29.png)
 
-![](../.gitbook/assets/image%20%289%29.png)
+![](../.gitbook/assets/image%20%2810%29.png)
 
-#### 组合递归公式
+#### 组合数递归求法
 
 ```cpp
-//C(n, m) = C(n -1, m - 1) + C(n - 1, m)
-C[1][0] = C[1][1] = 1;
-	for (int i = 2; i < N; i++){
-		C[i][0] = 1;
-		for (int j = 1; j < N; j++)
-			C[i][j] = (C[i - 1][j] + C[i - 1][j - 1]);
+//公式：C(n, m) = C(n -1, m - 1) + C(n - 1, m)
+
+int sum(int m,int n)
+{
+	if(n==m||n==0)
+		return 1;
+	else
+		return sum(m-1,n)+sum(m-1,n-1);
 }
 ```
-
-
 
 ### 最大公约数/最小公倍数
 

@@ -4,15 +4,35 @@
 
 ### New/Delete
 
+#### new/delete操作符
 
+new完成两个功能：
+
+* 用operator new分配内存
+* 在分配的内存行构造函数初始化
 
 #### operator new
+
+返回值类型是void\*，返回一段未初始化的内存。
+
+```cpp
+void * operator new(size_t size);
+```
 
 完成标准的内存分配。要实现不同的内存分配行为要重载operator new，new operator和placement new都是不能重载的
 
 #### placement new
 
- 是operator new的一个重载版本,在用户指定的内存位置上构建新的对象，这个构建过程不分配内存，只需要调用对象的构造函数，并返回分配好的内存的指针 好处 在已分配好的内存上进行对象的构建，构建速度快。 可以提升buffer的效率，省去调用默认构造函数。 已分配好的内存可以反复利用，有效的避免内存碎片问题。
+ 是operator new的一个重载版本,在用户指定的内存位置上构建新的对象，这个构建过程不分配内存，只需要调用对象的构造函数，并返回分配好的内存的指针好处 在已分配好的内存上进行对象的构建，构建速度快。 可以提升buffer的效率，省去调用默认构造函数_（vector的emplace\_back方法）_。 已分配好的内存可以反复利用，有效的避免内存碎片问题。
+
+```cpp
+void buffer = malloc(sizeof(ClassA)); 
+ClassA ptr = new(buffer)ClassA();
+```
+
+#### std::allocator
+
+std::allocator 类模板是所有标准库容器所用的默认分配器。有allocate（分配未初始化的内存）、deallocate、construct（在分配的内存中构造对象）、destroy（析构在已分配的内存中构造的对象）等方法。
 
 #### malloc/free和new/delete的区别 
 
@@ -67,8 +87,11 @@ char s3[100];//数组，100
 
 {% tabs %}
 {% tab title="例1" %}
+{% code-tabs %}
+{% code-tabs-item title="用指针对地址进行操作" %}
 ```cpp
 struct A
+
 {
 	bool b;
 	int arr[2];
@@ -87,12 +110,26 @@ struct A
 	unsigned int q = (unsigned int)(&p->i);
 	(*(int*)((char*)&a + q)) = -50;	
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 程序执行完后：
 
-![](../../.gitbook/assets/image%20%2820%29.png)
+![](../../.gitbook/assets/image%20%2821%29.png)
 
 p的地址为0x00000000，&p-&gt;i取了i的地址，但没有用这块内存，所以不会出错，i的地址为0x00000012。将a转换为char指针后，再加12字节，得到的是a.i所在的内存，并对这块内存解析为int进行了赋值。
+{% endtab %}
+
+{% tab title="例2" %}
+{% code-tabs %}
+{% code-tabs-item title="指针含义辨析" %}
+```cpp
+const char* str[3] = {"abc","def", "ghi"};
+const char* ps = str[0];//ps是一个指向const char数组的指针，ps本身不是const
+cout << ++ps << endl;//输出“bc”
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 {% endtab %}
 {% endtabs %}
 

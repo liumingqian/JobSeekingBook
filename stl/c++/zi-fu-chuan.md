@@ -1,5 +1,11 @@
 # 字符串
 
+### 初始化
+
+```cpp
+char *test = "error"; //错误：右值类型为const char[6]
+```
+
 ### 求长度
 
 size\(\)是string的一个函数（不是sizeof!\)，返回值不包括字符串结尾\0。

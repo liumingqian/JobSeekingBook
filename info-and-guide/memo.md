@@ -2,7 +2,7 @@
 
 乐观锁，自适应锁，IO阻塞与非阻塞，多路复用，同步阻塞，同步非阻塞，异步阻塞，异步非阻塞
 
-sizeof
+
 
 [中国航天人才网](http://www.spacetalent.com.cn/zhiwei.aspx)
 
