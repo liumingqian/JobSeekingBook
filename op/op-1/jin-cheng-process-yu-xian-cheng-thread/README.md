@@ -184,6 +184,8 @@
         (2)不断重复(1)看是否能让所有进程都加入安全序列
 ```
 
+
+
 ### 特殊进程
 
 #### 守护进程
@@ -191,38 +193,6 @@
 也称为精灵进程，是运行在后台的一种特殊进程。它独立于控制终端并且周期性地执行某种任务或等待处理发生的事件。
 
 守护进程通常采用以d结尾的名字，表示Daemon
-
-
-
-
-
-vectorflag\(code.size\(\),false\); int i=0,j=code.size\(\);
-
-```text
-    while(i<code.size())
-    {
-        if(i==0||res.back()!=code[i])
-        {
-            if(!flag[i])
-            {               
-                res.push_back(code[i++]);   
-            }
-            else
-                i++;
-        }
-        else{
-            for(int j=i+1;j<code.size();j++)
-            {
-                if(code[i]!=code[j]&&!flag[j])
-                {
-                    res.push_back(code[j]);                       
-                    flag[j]=true;
-                    break;
-                }
-            }
-        }
-    }
-```
 
 #### 
 
