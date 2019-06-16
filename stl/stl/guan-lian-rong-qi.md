@@ -88,7 +88,7 @@ struct classcomp {
 
 ## Unordered\_map
 
-unordered\_map底层由HashTable（哈希桶）实现，数据插入和查找的时间复杂度几乎是常数时间，代价是消耗比较多的内存。底层实现上，使用一个下标范围比较大的数组来存储元素，形成很多的桶（桶里可能是vector\)，利用hash函数对key进行映射到不同区域进行保存。unordered\_map查找插入的效率优于map。
+unordered\_map底层由HashTable（哈希桶）实现，数据插入和查找的时间复杂度几乎是常数时间，代价是，使用一个比较大的数组来存储元素，形成很多的桶（桶里可能是vector\)，利用hash函数对key进行映射到不同区域进行保存。unordered\_map查找插入的效率优于map。
 
 其取值过程是:
 
