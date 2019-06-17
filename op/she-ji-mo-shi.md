@@ -16,19 +16,29 @@ description: 主要包括面试时常考的设计模式
 
 ### **单例模式**
 
- 构造函数私有化，避免被其他函数调用。客户端通过getInstance的方式调用。
+ 只提供唯一一个类的实例，在任何位置都可通过getInstance方式获取那个唯一实例。
 
 **优点**：避免对资源的多重占用，节约内存，可以设置全局访问点，优化共享资源访问。
 
 **缺点**：扩展困难，可能与单一职责原则有冲突。 
 
-**使用场景**:要求对象必须唯一；整个项目需要一个共享访问点；创造对象消耗很多资源；需要定义大量静态常量和方法（也可以直接声明为static） 
+**使用场景**:
 
-**注意事项**：在高并发情况下应当注意单例模式的线程同步问题。如线程a和b同时执行，都判断到singleton==null，会使线程中同时存在多个对象。
+* 要求对象必须唯一，整个项目需要一个共享访问点（管理类，设备管理器）
+* 创造对象消耗很多资源（线程池）
+* 需要定义大量静态常量和方法（也可以直接声明为static） 
+
+**注意事项**：
+
+* 线程安全：在高并发情况下应当注意单例模式的线程同步问题。如线程a和b同时执行，都判断到singleton==null，会使线程中同时存在多个对象。
+* 构造函数私有化，避免被其他函数调用。
 
 **c++实现**：
 
+* 懒汉式：直到使用才实例化
+
 ```cpp
+//简单懒汉式：存在线程安全问题
 Singleton* getInstance()
 {
     if (instance == NULL)
@@ -36,9 +46,71 @@ Singleton* getInstance()
 
     return instance;
 }
+
+//线程安全的懒汉式：
+ static Ptr get_instance(){
+        // 双检锁
+        if(m_instance_ptr==nullptr){//只有instance为空时才上锁，避免每次调用都加锁，冗余开销
+            std::lock_guard<std::mutex> lk(m_mutex);
+            if(m_instance_ptr == nullptr){
+              m_instance_ptr = std::shared_ptr<Singleton>(new Singleton);
+            }
+            return m_instance_ptr;
+        }
+    }
+
 ```
 
-\*\*\*\*
+饿汉式：程序开始时就实例化完成
+
+```cpp
+//static变量版
+ static Singleton& get_instance(){
+        static Singleton instance;
+        return instance;
+    }
+    
+//static指针版
+//-------------.h文件
+class e_singleton
+{
+private:
+    e_singleton(){}
+    static e_singleton *p;
+public:
+    static e_singleton *Getinstance();
+    void Hello();
+};
+//-------------.cpp文件
+e_singleton *e_singleton::p = new e_singleton;
+```
+
+* 单例模板（CRTP奇异递归模板）
+
+```cpp
+template<typename T>
+class Singleton{
+public:
+    static T& get_instance(){
+        static T instance;
+        return instance;
+    }
+    virtual ~Singleton(){}
+    Singleton(const Singleton&)=delete;    //不允许拷贝构造
+    Singleton& operator =(const Singleton&)=delete;    //不允许赋值
+protected:
+    Singleton(){}
+};
+
+class DerivedSingle:public Singleton<DerivedSingle>{
+   friend class Singleton<DerivedSingle>;//注意:声明成友元类，以便获取私有的构造函数
+public:
+   DerivedSingle(const DerivedSingle&)=delete;  //不允许拷贝构造
+   DerivedSingle& operator =(const DerivedSingle&)= delete; //不允许赋值
+private:
+   DerivedSingle()=default;
+};
+```
 
 ### **Bridge模式\(接口与实现分离\)**
 
