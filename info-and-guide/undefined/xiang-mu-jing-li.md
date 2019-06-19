@@ -8,6 +8,12 @@
 
 TiledViewport：：SharedMemoryCmd 用于向无人机主控发送命令的共享内存类
 
+#### 线程池
+
+地形模块为所有网络和本地db的地形块数据异步请求创建了一个基类job\_worker。job\_worker管理一个线程池。由各个CacheManager请求时向其中添加任务，用boost::bind绑定了process函数进行请求或上采样，下采样。
+
+同时有一个job\_queue类负责存储这些任务。job\_queue用锁保证线程安全性，并封装了一些sortPush等功能。外部增加任务时尝试调用job\_queue的try\_push函数。
+
 ### **调试方法**
 
 > 云风blog

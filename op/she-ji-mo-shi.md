@@ -228,7 +228,7 @@ class SenderFactory {
 
 ### **命令模式**
 
-![](../.gitbook/assets/image%20%2834%29.png)
+![](../.gitbook/assets/image%20%2837%29.png)
 
 #### **实现：**
 
@@ -352,7 +352,7 @@ void RenderTree::ForEach(std::function<void(RenderNode * const)> func)
 
 ### 观察者模式
 
-![](../.gitbook/assets/image%20%2843%29.png)
+![](../.gitbook/assets/image%20%2846%29.png)
 
 **优点**：观察者和抽象者不直接耦合
 
@@ -421,7 +421,7 @@ public class StudentController {
 
 ### **游戏循环**
 
-![](../.gitbook/assets/image%20%2854%29.png)
+![](../.gitbook/assets/image%20%2857%29.png)
 
 **参考资料**：
 
