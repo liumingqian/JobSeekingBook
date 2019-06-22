@@ -63,8 +63,30 @@ c++11中有四个互斥对象同于同步多个线程对共享资源的访问。
 
 * mutex：最基本的互斥对象
 * timed\_mutex:带有超时机制的互斥对象，允许等待一段时间，超时后仍未获得互斥对象的所有权时放弃等待。
-* recursive\_mutex:递归互斥锁，可以被同一个线程多次加锁，以获得对互斥锁对象的多层所有权。
+* recursive\_mutex:递归互斥锁，可以被同一个线程多次加锁，以获得对互斥锁对象的多层所有权。当获取锁的函数间有相互调用的关系，如果使用非递归锁就会立即死锁。
+
+```cpp
+MutexLock mutex;  
+
+void foo()  
+{  
+    mutex.lock();  
+    // do something  
+    mutex.unlock();  
+}  
+
+void bar()  
+{  
+    mutex.lock();  
+    // do something  
+    foo();  //死锁
+    mutex.unlock();   
+}  
+```
+
 * recursive\_timed\_mutex
+
+ref：[https://blog.csdn.net/m18718300471/article/details/79927948](https://blog.csdn.net/m18718300471/article/details/79927948)
 
 **死锁**： 如果提前中抛出异常或return，而导致没有解锁就退出，就会发生死锁。使用RAII（资源分配时初始化）方法管理互斥对象可以避免死锁。c++提供了一些互斥对象管理类模板：
 
