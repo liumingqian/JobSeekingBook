@@ -38,6 +38,15 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 
 最后还需根据相机高度更新相机，如果相机高度很高，则需要等比例的缩放视锥。
 
+### 地形编辑
+
+#### 编辑数据同步
+
+* 保存金字塔结构的数据：设置一个临时db，同步更新修改层的上层数据，异步更新其下层数据，保证实时交互效率；在保存状态下，真正将所有层数据存入与原引擎匹配的数据库。
+* LRU数据管理：已编辑数据不能从LRU中换出，对相应Cache加锁
+* 增加版本信息避免异步更新下层数据，请求父节点数据时获取到的不是最新的数据
+* 注意边界问题以防止修改后出现T-junction
+
 ## 飞控项目
 
 ### AirSim是做什么的？
@@ -46,8 +55,10 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 
 ### 为了应用Airsim做了哪些工作？
 
-* 多人模式
+* 为多人模式进行了适配
   * 多个ROS-Airsim端，通过多个端口连接到Unreal。在场景中放置playerStart后，在多玩家选项中设置玩家数量，unreal会在playerStart处根据gameMode中指定的默认playerController、pawn和HUD类创建player。controller和pawn都是首先在服务器上创建n个，如controller0，controller1，controller2，然后依次拷贝到每个客户端，每个客户端拥有的是controller0，controller0，controller0。重载GameMode的PostLogin函数获取Controller和Pawn在服务器创建并possess完成的时间节点。controller中保存simMode的指针，并在接受输入后通过simMode对vehicle进行控制，在PostLogin调用后，controller可以拿到pawn，然后委托SimHUD在客户端创建SimMode。
+* Timer:通过每隔特定间隔检查无人车运动速度使无人车速度稳定维持在期望值范围内。
+  * 
 
 ### 飞控为什么复杂？
 
