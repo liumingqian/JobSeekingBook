@@ -14,6 +14,10 @@ TiledViewport：：SharedMemoryCmd 用于向无人机主控发送命令的共享
 
 同时有一个job\_queue类负责存储这些任务。job\_queue用锁保证线程安全性，并封装了一些sortPush等功能。外部增加任务时尝试调用job\_queue的try\_push函数。
 
+#### viwo插件模式
+
+clientCore：pluginManager：autoLoadPlugins，根据配置文件的路径读取到插件名，然后再根据插件名到xml目录下找对应的插件的xml文件。对于一个插件模块，InvokePluginInit函数通过调用GetProcAddress去找模块中叫Init的函数，完成dll的初始化。
+
 ## Viwo地形模块
 
 ### 地形四叉树
@@ -55,21 +59,52 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 
 ### 为了应用Airsim做了哪些工作？
 
+飞行控制器的主要工作是将期望状态作为输入，利用传感器数据估计实际状态，然后驱动电机使实际状态接近期望状态
+
 * 为多人模式进行了适配
+  * 原先AirSim没有用playerController，直接在Pawn的初始化里绑定了轴和key来接受输入。然后在把输入控制放到playerController里的过程中遇到了一些初始化顺序问题，通过重载postLogin等掌握关键时间节点的函数保证了初始化顺序正确
   * 多个ROS-Airsim端，通过多个端口连接到Unreal。在场景中放置playerStart后，在多玩家选项中设置玩家数量，unreal会在playerStart处根据gameMode中指定的默认playerController、pawn和HUD类创建player。controller和pawn都是首先在服务器上创建n个，如controller0，controller1，controller2，然后依次拷贝到每个客户端，每个客户端拥有的是controller0，controller0，controller0。重载GameMode的PostLogin函数获取Controller和Pawn在服务器创建并possess完成的时间节点。controller中保存simMode的指针，并在接受输入后通过simMode对vehicle进行控制，在PostLogin调用后，controller可以拿到pawn，然后委托SimHUD在客户端创建SimMode。
-* Timer:通过每隔特定间隔检查无人车运动速度使无人车速度稳定维持在期望值范围内。
-  * 
+* Timer
+  * 一个负责收发无人车无人机姿态信息和控制信息的类
+  * 为无人车运动的速度设置一个小小的范围，每隔特定interval设置一次油门和刹车，检查无人车速度如果不在范围里就改变油门和刹车，使无人车速度稳定维持在期望值范围内。
 
 ### 飞控为什么复杂？
-
-飞行控制器的主要工作是将期望状态作为输入，利用传感器数据估计实际状态，然后驱动电机使实际状态接近期望状态
 
 * 涉及多个实体，运作机制复杂（模拟器、飞控模拟软件、地面站），多项配置（遥控器通道、遥控器校准、飞行模型选择、飞行模式选择，UDP网络配置）
 * 资料少，从Airsim切入，但Airsim文档有些过期
 
+### Unreal
+
+#### server—client网络模型  
+
+![](../.gitbook/assets/image%20%2850%29.png)
+
+![](../.gitbook/assets/image%20%2863%29.png)
+
+client去获取它没有权限获得的GameMode的时候只会得到空指针
+
+* Gamemode：游戏规则，只存在在server
+* GameState：在server和Client中间传递信息，从server复制到每个客户端的
+* playerState:代表player的所有信息，也是拷贝给每个人的，这样每个client都知道所有玩家的信息。当切换地图或者断线重连的时候，playerState保存了之前的游戏状态
+
 ## 2D地图模块
 
 ### camera2D怎么工作?
+
+工作流：
+
+1. 3D相机更新位置
+2. 计算rate：小地图宽度/相机所照到的实际宽度
+
+   double rate = _\(PI \*_ g_coord.getShortAxis\(\) \* camera_-&gt;GetWindowHeight\(\)\) / \(40075453 \* _camera\_-&gt;GetElevation\(\) \*_ tan\(camera\_-&gt;GetFovy\(\) / 2 \* PI / 180\)\);
+
+   1. 其中fovy是相机视角，默认为45度，角度\*pi/180是转弧度，40076km是赤道周长，shortAxis是地球半径，记为r，赤道周长记为c，公式可以转化为【\(pi\*r/c\)\*小地图高度 】/【相机高度\*tan（一半相机视角）】。
+   2. 前半边中2\*pi\*r是圆周长，pi\*r是墨卡托下从南极到北极的距离，pi\*r/c是墨卡托坐标系下地图的长宽比，乘上小窗口height得到小窗口的理论宽度。后半边求得的是相机照到的实际宽度的一半。
+   3. 数据源将地图分割成256\*256的小块
+
+![](../.gitbook/assets/image%20%2818%29.png)
+
+![](../.gitbook/assets/image%20%2829%29.png)
 
 ## **调试方法**
 
