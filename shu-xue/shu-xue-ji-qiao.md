@@ -40,5 +40,11 @@ int gcd(int a, int b)
 int ceil = (x+n-1)/n;
 ```
 
+#### 循环下标
 
+```cpp
+int index=(index+1)%n;
+```
+
+[约瑟夫环问题](https://www.cnblogs.com/cmmdc/p/7216726.html)
 
