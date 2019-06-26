@@ -14,7 +14,7 @@ a•b = \|a\|\|b\|cosθ = a1b1+a2b2+……anbn
 
 向量a 和b 叉乘, 得到一个垂直于a 和b的向量a ×b , 它的方向由右手螺旋法则确定, 它的长度是a和b张开的平行四边形的面积。
 
-![&#x5176;&#x5B9E;&#x5E94;&#x5F53;&#x4E3A;\|a\|&#xB7;\|b\|&#xB7;sin&#x3B8;&#xB7;n&#xFF0C;\|a\|&#xB7;\|b\|&#xB7;sin&#x3B8;&#x8868;&#x5927;&#x5C0F;&#xFF0C;&#x5411;&#x91CF;n&#x8868;&#x6CD5;&#x7EBF;&#x65B9;&#x5411;](../../.gitbook/assets/image%20%2828%29.png)
+![&#x5176;&#x5B9E;&#x5E94;&#x5F53;&#x4E3A;\|a\|&#xB7;\|b\|&#xB7;sin&#x3B8;&#xB7;n&#xFF0C;\|a\|&#xB7;\|b\|&#xB7;sin&#x3B8;&#x8868;&#x5927;&#x5C0F;&#xFF0C;&#x5411;&#x91CF;n&#x8868;&#x6CD5;&#x7EBF;&#x65B9;&#x5411;](../../.gitbook/assets/image%20%2830%29.png)
 
 ![](../../.gitbook/assets/image%20%2817%29.png)
 
@@ -22,11 +22,24 @@ a•b = \|a\|\|b\|cosθ = a1b1+a2b2+……anbn
 
 ![](../../.gitbook/assets/image%20%288%29.png)
 
+### 四元数
+
+* 不直观
+* 节省空间，插值方便，不会死锁
+
+![](../../.gitbook/assets/image%20%2847%29.png)
+
+![](../../.gitbook/assets/image%20%2858%29.png)
+
+其中α为旋转的角度，cos
+
+![](../../.gitbook/assets/image%20%2825%29.png)
+
 ### 点到直线的距离
 
 * 点到直线距离
 
-![](../../.gitbook/assets/image%20%2849%29.png)
+![](../../.gitbook/assets/image%20%2852%29.png)
 
 * 用叉乘求点到直线距离
 
@@ -34,7 +47,7 @@ a•b = \|a\|\|b\|cosθ = a1b1+a2b2+……anbn
 
 ### 判断点在三角形内
 
-![](../../.gitbook/assets/image%20%2837%29.png)
+![](../../.gitbook/assets/image%20%2839%29.png)
 
 * 叉乘
 
@@ -50,7 +63,7 @@ a•b = \|a\|\|b\|cosθ = a1b1+a2b2+……anbn
 
 ### 判断点是否在多边形内部
 
-![](../../.gitbook/assets/image%20%2844%29.png)
+![](../../.gitbook/assets/image%20%2846%29.png)
 
 ![](../../.gitbook/assets/image%20%289%29.png)
 
