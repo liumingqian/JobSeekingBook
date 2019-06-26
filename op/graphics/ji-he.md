@@ -26,7 +26,7 @@ a•b = \|a\|\|b\|cosθ = a1b1+a2b2+……anbn
 
 * 点到直线距离
 
-![](../../.gitbook/assets/image%20%2848%29.png)
+![](../../.gitbook/assets/image%20%2849%29.png)
 
 * 用叉乘求点到直线距离
 
@@ -34,7 +34,7 @@ a•b = \|a\|\|b\|cosθ = a1b1+a2b2+……anbn
 
 ### 判断点在三角形内
 
-![](../../.gitbook/assets/image%20%2836%29.png)
+![](../../.gitbook/assets/image%20%2837%29.png)
 
 * 叉乘
 
@@ -50,7 +50,7 @@ a•b = \|a\|\|b\|cosθ = a1b1+a2b2+……anbn
 
 ### 判断点是否在多边形内部
 
-![](../../.gitbook/assets/image%20%2843%29.png)
+![](../../.gitbook/assets/image%20%2844%29.png)
 
 ![](../../.gitbook/assets/image%20%289%29.png)
 

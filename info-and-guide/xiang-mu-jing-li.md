@@ -18,6 +18,18 @@ TiledViewport：：SharedMemoryCmd 用于向无人机主控发送命令的共享
 
 clientCore：pluginManager：autoLoadPlugins，根据配置文件的路径读取到插件名，然后再根据插件名到xml目录下找对应的插件的xml文件。对于一个插件模块，InvokePluginInit函数通过调用GetProcAddress去找模块中叫Init的函数，完成dll的初始化。
 
+## 模型处理
+
+### 模型序列化
+
+### 模型错误修正
+
+#### 调试技巧
+
+* opengl没有单位，但三维软件导出fbx有单位，在导出时会根据软件系统单位和要导出的单位，对模型数据添加一个缩放因子，此时会导致部分网格被缩放的非常小。
+
+### 模型动画
+
 ## Viwo地形模块
 
 ### 地形四叉树
@@ -66,11 +78,11 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
   * 多个ROS-Airsim端，通过多个端口连接到Unreal。在场景中放置playerStart后，在多玩家选项中设置玩家数量，unreal会在playerStart处根据gameMode中指定的默认playerController、pawn和HUD类创建player。controller和pawn都是首先在服务器上创建n个，如controller0，controller1，controller2，然后依次拷贝到每个客户端，每个客户端拥有的是controller0，controller0，controller0。重载GameMode的PostLogin函数获取Controller和Pawn在服务器创建并possess完成的时间节点。controller中保存simMode的指针，并在接受输入后通过simMode对vehicle进行控制，在PostLogin调用后，controller可以拿到pawn，然后委托SimHUD在客户端创建SimMode。
 * Timer
   * 一个负责收发无人车无人机姿态信息和控制信息的类
-  * 为无人车运动的速度设置一个小小的范围，每隔特定interval设置一次油门和刹车，检查无人车速度如果不在范围里就改变油门和刹车，使无人车速度稳定维持在期望值范围内。
+  * 为无人车运动的速度设置一个小小的范围，每隔特定interval设置一次油门和刹车，检查无人车速度如果不在范围里就改变油门和刹车，使无人车速度稳定维持在期望值范围内。（非线性系统线性化？）
 
 ### 飞控为什么复杂？
 
-飞行控制器的主要工作是将期望状态作为输入，利用传感器数据估计实际状态，然后驱动电机使实际状态接近期望状态。即，预测未来，修正当下。
+飞行控制器的主要工作是将期望状态作为输入，利用传感器数据估计实际状态，然后驱动电机使实际状态接近期望状态。即，预测未来，修正当下。目前工业界经常用扩展卡尔曼滤波器（ekf）进行无人机多传感器融合。
 
 * 涉及多个实体，运作机制复杂（模拟器、飞控模拟软件、地面站），多项配置（遥控器通道、遥控器校准、飞行模型选择、飞行模式选择，UDP网络配置）
 * 资料少，从Airsim切入，但Airsim文档有些过期
@@ -79,9 +91,9 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 
 #### server—client网络模型  
 
-![](../.gitbook/assets/image%20%2850%29.png)
+![](../.gitbook/assets/image%20%2851%29.png)
 
-![](../.gitbook/assets/image%20%2863%29.png)
+![](../.gitbook/assets/image%20%2864%29.png)
 
 client去获取它没有权限获得的GameMode的时候只会得到空指针
 

@@ -8,7 +8,7 @@
 
 ### 平移
 
-![](../../.gitbook/assets/image%20%2852%29.png)
+![](../../.gitbook/assets/image%20%2853%29.png)
 
 ### 旋转
 
@@ -16,7 +16,7 @@
 
 ### 缩放
 
-![](../../.gitbook/assets/image%20%2864%29.png)
+![](../../.gitbook/assets/image%20%2865%29.png)
 
 因此应用变换的顺序是缩放-&gt;旋转-&gt;平移。
 
