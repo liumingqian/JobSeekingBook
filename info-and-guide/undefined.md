@@ -10,7 +10,7 @@
 
 #### 马逸涵-字节短视频TA
 
-![](../.gitbook/assets/image%20%2838%29.png)
+![](../.gitbook/assets/image%20%2840%29.png)
 
 ### 光大科技实习生-6.20
 

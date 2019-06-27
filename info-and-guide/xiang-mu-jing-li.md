@@ -91,9 +91,9 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 
 #### server—client网络模型  
 
-![](../.gitbook/assets/image%20%2854%29.png)
+![](../.gitbook/assets/image%20%2859%29.png)
 
-![](../.gitbook/assets/image%20%2868%29.png)
+![](../.gitbook/assets/image%20%2875%29.png)
 
 client去获取它没有权限获得的GameMode的时候只会得到空指针
 
@@ -116,9 +116,9 @@ client去获取它没有权限获得的GameMode的时候只会得到空指针
    2. 前半边中2\*pi\*r是圆周长，pi\*r是墨卡托下从南极到北极的距离，pi\*r/c是墨卡托坐标系下地图的长宽比，乘上小窗口height得到小窗口的理论宽度。后半边求得的是相机照到的实际宽度的一半。
    3. 数据源将地图分割成256\*256的小块
 
-![](../.gitbook/assets/image%20%2818%29.png)
+![](../.gitbook/assets/image%20%2820%29.png)
 
-![](../.gitbook/assets/image%20%2831%29.png)
+![](../.gitbook/assets/image%20%2833%29.png)
 
 ## **调试方法**
 

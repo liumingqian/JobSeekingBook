@@ -8,15 +8,15 @@
 
 ### 平移
 
-![](../../.gitbook/assets/image%20%2856%29.png)
+![](../../.gitbook/assets/image%20%2861%29.png)
 
 ### 旋转
 
-![](../../.gitbook/assets/image%20%2821%29.png)
+![](../../.gitbook/assets/image%20%2823%29.png)
 
 ### 缩放
 
-![](../../.gitbook/assets/image%20%2869%29.png)
+![](../../.gitbook/assets/image%20%2876%29.png)
 
 因此应用变换的顺序是缩放-&gt;旋转-&gt;平移。
 
@@ -43,6 +43,16 @@
 3. 平移变换不改变坐标轴走向，但改变原点位置，两个坐标系原点不再重合。
 
 ref:[https://blog.csdn.net/faithmy509/article/details/82705368](https://blog.csdn.net/faithmy509/article/details/82705368)
+
+### 投影矩阵
+
+![](../../.gitbook/assets/image%20%2843%29.png)
+
+实际上只是一个缩放和z上平移的矩阵。
+
+![](../../.gitbook/assets/image%20%2810%29.png)
+
+![](../../.gitbook/assets/image%20%2853%29.png)
 
 ### 齐次坐标
 
