@@ -36,6 +36,8 @@ clientCore：pluginManager：autoLoadPlugins，根据配置文件的路径读取
 
 ![](../.gitbook/assets/image%20%281%29.png)
 
+每层地形块x的坐标范围为0-2^\(level+1\)-1,y的坐标范围为0-2^level-1
+
 #### 层数确定和比例换算
 
 鼠标滚轮缩放时调用MouseZRoll。调用到UpdateGlobalInfo函数，首先计算当前g\_screenUnit
@@ -53,6 +55,12 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 （FrustumRight-FrustumLeft）/窗口宽度（像素）可以理解为一个opengl单位（一般是一米）对应多少像素，这个值要乘上近裁面到视点所在位置的比例（聚焦在视点），因此上式可以求出一个单位为米/像素的值。
 
 最后还需根据相机高度更新相机，如果相机高度很高，则需要等比例的缩放视锥。
+
+#### LRU
+
+核心数据结构是两个双端队列一个hashmap，第一个双端队列相当于一个内存池，初始化时分配了所有节点，第二个队列保存了cache的时序信息，hashmap保证可以在O\(1\)的时间内，根据key取到地形块。quadTreeLRU保存了每个节点的子节点信息，从LRU中删除cache时会同时移除该节点的所有子节点（如果存在的话）
+
+#### 分裂策略
 
 ### 地形编辑
 
