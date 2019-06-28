@@ -11,12 +11,12 @@
 ```cpp
 //公式：C(n, m) = C(n -1, m - 1) + C(n - 1, m)
 
-int sum(int m,int n)
+int combine(int m,int n)
 {
 	if(n==m||n==0)
 		return 1;
 	else
-		return sum(m-1,n)+sum(m-1,n-1);
+		return combine(m-1,n)+combine(m-1,n-1);
 }
 ```
 

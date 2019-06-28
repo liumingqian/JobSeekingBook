@@ -119,7 +119,7 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 
 ![](../.gitbook/assets/image%20%2859%29.png)
 
-![](../.gitbook/assets/image%20%2875%29.png)
+![](../.gitbook/assets/image%20%2876%29.png)
 
 client去获取它没有权限获得的GameMode的时候只会得到空指针
 

@@ -1,10 +1,10 @@
 # TCP/IP协议族
 
-
-
 ## TCP/IP协议
 
 一个传输层协议族，包括IP协议、IMCP协议、TCP协议等。TCP/IP指的是TCP和IP协同工作，TCP负责应用软件（如浏览器）和网络软件间的通信，IP负责计算机间的通信
+
+![](../.gitbook/assets/image%20%2870%29.png)
 
 #### IP协议
 
