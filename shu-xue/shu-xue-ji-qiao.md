@@ -2,18 +2,18 @@
 
 ### 排列组合
 
-![](../.gitbook/assets/image%20%288%29.png)
+![](../.gitbook/assets/image%20%289%29.png)
 
-![](../.gitbook/assets/image%20%2814%29.png)
+![](../.gitbook/assets/image%20%2815%29.png)
 
 #### 组合数递归求法
 
 ```cpp
-//公式：C(n, m) = C(n -1, m - 1) + C(n - 1, m)
+//公式：C(m, n) = C(m, n - 1) + C(m - 1, n - 1)
 
 int combine(int m,int n)
 {
-	if(n==m||n==0)
+	if(n==m||m==0)
 		return 1;
 	else
 		return combine(m-1,n)+combine(m-1,n-1);

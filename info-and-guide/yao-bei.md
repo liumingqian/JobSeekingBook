@@ -6,3 +6,5 @@
 
 [stringstream用法](../stl/stl/vector.md#stringstream)
 
+[设计模式](../stl/she-ji-mo-shi.md)
+
