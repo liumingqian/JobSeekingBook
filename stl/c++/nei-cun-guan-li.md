@@ -20,7 +20,7 @@ new完成两个功能：
 
 #### operator new
 
-返回值类型是void\*，返回一段未初始化的内存。
+返回值类型是void\*，返回一段未初始化的内存。调用malloc
 
 ```cpp
 void * operator new(size_t size);
