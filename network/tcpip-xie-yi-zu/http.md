@@ -24,3 +24,5 @@ HTTP协议是建立在请求/响应模型上的。首先由客户建立一条与
    4. 请求DNS域名系统根服务器
 3. 通过TCP或UDP协议传输数据
 
+[https://mp.weixin.qq.com/s?\_\_biz=Mzg2NzA4MTkxNQ==&mid=2247485625&idx=1&sn=ea3010c3c9fb167b30637c271f7a4a6a&chksm=ce40436df937ca7b2f5870a50fd339972bdfced68a328321f83fa5947bfa0ec9fe34c438ad27&scene=0&xtrack=1&key=95b17fddd06e963cf722b21924825df79789535339d8697c0323f4d77218fd69e607cfe033ab4ac51eeb2033a21cc8885bb323999bc6bd37b9a91c71686da4975de63134c4801ada944d4591c38fe3fd&ascene=1&uin=MTIyODM5ODk2NA%3D%3D&devicetype=Windows+10&version=62060833&lang=zh\_CN&pass\_ticket=bU9wDyDukiYw%2FWXImxaqS0011sxjYpOnB8TDQBM3XYyYuMigTjuu1vP32pCsmSkp](https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&mid=2247485625&idx=1&sn=ea3010c3c9fb167b30637c271f7a4a6a&chksm=ce40436df937ca7b2f5870a50fd339972bdfced68a328321f83fa5947bfa0ec9fe34c438ad27&scene=0&xtrack=1&key=95b17fddd06e963cf722b21924825df79789535339d8697c0323f4d77218fd69e607cfe033ab4ac51eeb2033a21cc8885bb323999bc6bd37b9a91c71686da4975de63134c4801ada944d4591c38fe3fd&ascene=1&uin=MTIyODM5ODk2NA%3D%3D&devicetype=Windows+10&version=62060833&lang=zh_CN&pass_ticket=bU9wDyDukiYw%2FWXImxaqS0011sxjYpOnB8TDQBM3XYyYuMigTjuu1vP32pCsmSkp)
+
