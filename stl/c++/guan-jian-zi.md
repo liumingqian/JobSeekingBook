@@ -2,7 +2,7 @@
 
 ### static
 
-
+constexpr
 
 ### mutable
 

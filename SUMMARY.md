@@ -16,6 +16,7 @@
     * [内存管理](stl/c++/nei-cun-guan-li.md)
     * [继承、多态、封装](stl/c++/lei.md)
     * [引用、指针、数组](stl/c++/yin-yong-zhi-zhen-shu-zu.md)
+    * [Trick](stl/c++/trick.md)
     * [高级特性](stl/c++/gao-ji-te-xing.md)
   * [STL标准模板库](stl/stl/README.md)
     * [algorithm](stl/stl/algorithm.md)
