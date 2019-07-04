@@ -12,7 +12,7 @@
 
    证明：一个元素m被放入第i个位置的概率P = 前i-1个位置选择元素时没有选中m的概率 \* 第i个位置选中m的概率，即
 
-![](../.gitbook/assets/image%20%2857%29.png)
+![](../.gitbook/assets/image%20%2860%29.png)
 
 作者：lyz\_cs 来源：CSDN 原文：
 

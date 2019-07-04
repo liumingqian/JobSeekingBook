@@ -65,9 +65,9 @@ RPC要解决的两个问题：
 1. 解决分布式系统中，服务之间的调用问题。
 2. 远程调用时，要能够像本地调用一样方便，让调用者感知不到远程调用的逻辑。
 
-![&#x672C;&#x5730;&#x8FC7;&#x7A0B;&#x8C03;&#x7528;](../.gitbook/assets/image%20%2825%29.png)
+![&#x672C;&#x5730;&#x8FC7;&#x7A0B;&#x8C03;&#x7528;](../.gitbook/assets/image%20%2828%29.png)
 
-![RPC](../.gitbook/assets/image%20%2854%29.png)
+![RPC](../.gitbook/assets/image%20%2857%29.png)
 
 一个完整的RPC流程，可以用下面这张图来描述：  
 
