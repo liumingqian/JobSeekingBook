@@ -45,7 +45,6 @@
   * [TCP/IP协议族](network/tcpip-xie-yi-zu/README.md)
     * [Http](network/tcpip-xie-yi-zu/http.md)
 * [操作系统](op-1/README.md)
-  * [Linux](op-1/linux.md)
   * [计算机组成](op-1/untitled.md)
   * [Linux基础](op-1/linux-ji-chu.md)
   * [内存管理](op-1/nei-cun-guan-li.md)
