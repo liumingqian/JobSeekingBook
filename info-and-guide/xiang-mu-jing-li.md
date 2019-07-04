@@ -32,6 +32,8 @@ clientCore：pluginManager：autoLoadPlugins，根据配置文件的路径读取
 
 ## Viwo地形模块
 
+公司共享盘上有viwo和googleearth的比较！
+
 ### 地形四叉树
 
 ![](../.gitbook/assets/image%20%281%29.png)
