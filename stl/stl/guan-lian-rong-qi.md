@@ -148,7 +148,7 @@ namespace std
 
 ## hash\_map
 
-不是标准库里的
+不是标准库里的，底层数据结构为hash表
 
 ```cpp
 #include<ext/hash_map>

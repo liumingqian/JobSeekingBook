@@ -228,10 +228,10 @@ list可以用于解决约瑟夫环问题。
 
 ## priority\_queue
 
-默认存储元素的容器是vector，但priority\_queue无法遍历。
+默认存储元素的容器是vector，priority\_queue无法遍历，默认建立的是大根堆。
 
 ```cpp
-//priority_queue模板有三个参数，建立的是大根堆
+//priority_queue模板有三个参数
 
 template <typename T, typename Container=std::vector<T>, 
                       typename Compare=std::less<T>> class priority_queue
@@ -244,7 +244,7 @@ std::priority_queue<std::string, std::vector<std::string>,std: :greater<std::str
 
 ## Stack/Queue
 
-stack和queue是两种限定操作的容器适配器，queue的容器需要支持以下的方法：
+stack和queue是两种限定操作的容器适配器，底层一般用list或deque实现。queue的容器需要支持以下的方法：
 
 * empty
 * size
