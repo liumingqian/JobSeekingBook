@@ -36,7 +36,6 @@
     * [背包问题](suan-fa-she-ji/dong-tai-gui-hua/bei-bao-wen-ti.md)
   * [图](suan-fa-she-ji/tu.md)
 * [图形学](graphics/README.md)
-  * [渲染流水线](graphics/ran-liu-shui-xian.md)
   * [几何](graphics/ji-he.md)
   * [矩阵](graphics/ju-zhen.md)
   * [PBR](graphics/pbr.md)
