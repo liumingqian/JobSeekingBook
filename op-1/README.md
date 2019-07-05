@@ -33,5 +33,7 @@ description: >-
 
 
 
-### 
+### posix
+
+可移植操作系统接口Portable Operating System Interface of UNIX，POSIX标准定义了操作系统应该为应用程序提供的接口标准
 
