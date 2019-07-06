@@ -46,5 +46,9 @@ int ceil = (x+n-1)/n;
 int index=(index+1)%n;
 ```
 
-[约瑟夫环问题](https://www.cnblogs.com/cmmdc/p/7216726.html)
+#### [约瑟夫环问题](https://www.cnblogs.com/cmmdc/p/7216726.html)
+
+#### [整数拆分](https://leetcode.com/problems/integer-break/)
+
+
 

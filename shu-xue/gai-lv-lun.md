@@ -18,3 +18,11 @@
 
 [ref:https://blog.csdn.net/qq\_26399665/article/details/79831490](https://blog.csdn.net/qq_26399665/article/details/79831490) 
 
+
+
+### 二项分布
+
+重复n次伯努利实验，每次实验独立，每次实验只有两种结果，两种结果互斥，且结果事件的概率在整个实验中不变
+
+期望E为np，方差D为np（1-p）
+
