@@ -421,7 +421,7 @@ public class StudentController {
 
 ### **游戏循环**
 
-![](../.gitbook/assets/image%20%2886%29.png)
+![](../.gitbook/assets/image%20%2887%29.png)
 
 **参考资料**：
 

@@ -22,5 +22,26 @@
 注意：当用size\(\)进行计算时，size\(\)的返回值为size\_t类型，是无符号整数，需要避免计算结果为负数。
 {% endhint %}
 
+### 运算符和表达式
 
+#### 运算符优先级
+
+单目运算符（!~++ --\)&gt;算术运算符（+-\*/%\)&gt;按位运算符（&^\|&&\|\|\)&gt;三目运算符（a?b:c\)&gt;赋值运算符
+
+#### 运算符重载
+
+```cpp
+T& T::operator=(const T &myStr)//返回引用才可以连等赋值；传入常量引用，避免调用复制构造函数
+{
+    if（this==&str)      //判重
+        return *this;
+    delete []m_data;     //分配新内存之前释放旧内存避免泄露
+    m_data=nullptr;
+    
+    m_data=new char[strlen(myStr.m_data)+1];
+    strcpy(m_data,str.m_data);
+    
+    return *this;
+}
+```
 

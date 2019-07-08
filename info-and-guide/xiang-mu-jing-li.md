@@ -30,9 +30,25 @@ clientCore：pluginManager：autoLoadPlugins，根据配置文件的路径读取
 
 ### 模型动画
 
+[https://mp.weixin.qq.com/s?\_\_biz=Mzg2NzA4MTkxNQ==&mid=2247485649&idx=1&sn=8c1f4acceb6db2a3c5e024f17649187a&chksm=ce404305f937ca1350d38d0e13b72384a64c9e24499bb2296da2ecd8217b850f7cb387d99926&scene=0&xtrack=1&key=95b17fddd06e963c4c5c9096af2ef147a033732b8f2340132161dfb910ca2002e862cc1fa56bd7e3e03e6cae7ac4714a0aaaba483ce6eae3fd2bed8ee6c79862e098a3a27fb1b2aeb215ee12e3645a61&ascene=1&uin=MTIyODM5ODk2NA%3D%3D&devicetype=Windows+10&version=62060833&lang=zh\_CN&pass\_ticket=4wfz5PJOtu4iI8yF1EeL428j%2FsKuwfVIVjc8TDAuEk48XY6CD6fJljw0tJi1mh3J](https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&mid=2247485649&idx=1&sn=8c1f4acceb6db2a3c5e024f17649187a&chksm=ce404305f937ca1350d38d0e13b72384a64c9e24499bb2296da2ecd8217b850f7cb387d99926&scene=0&xtrack=1&key=95b17fddd06e963c4c5c9096af2ef147a033732b8f2340132161dfb910ca2002e862cc1fa56bd7e3e03e6cae7ac4714a0aaaba483ce6eae3fd2bed8ee6c79862e098a3a27fb1b2aeb215ee12e3645a61&ascene=1&uin=MTIyODM5ODk2NA%3D%3D&devicetype=Windows+10&version=62060833&lang=zh_CN&pass_ticket=4wfz5PJOtu4iI8yF1EeL428j%2FsKuwfVIVjc8TDAuEk48XY6CD6fJljw0tJi1mh3J)
+
+## Viwo
+
+### 渲染
+
+#### 阴影
+
+光照为平行光，阴影由阴影贴图实现。SSAO，每个片元采样64个点。
+
 ## Viwo地形模块
 
 公司共享盘上有viwo和googleearth的比较！
+
+#### viwo功能
+
+编辑：高精度地形纹理编辑、河流植被编辑、建筑放置。
+
+可视化：场景漫游、大规模场景的实时绘制。环境仿真（不同季节不同时段）、气象仿真、海洋仿真、粒子特效、阴影
 
 ### 地形四叉树
 
@@ -121,7 +137,7 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 
 ![](../.gitbook/assets/image%20%2864%29.png)
 
-![](../.gitbook/assets/image%20%2883%29.png)
+![](../.gitbook/assets/image%20%2884%29.png)
 
 client去获取它没有权限获得的GameMode的时候只会得到空指针
 

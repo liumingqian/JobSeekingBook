@@ -31,6 +31,13 @@ int main()
 //截取子串
 string substr(size_t pos = 0, size_t len = npos);
 
+//strtok截取子串
+ char *tokenPtr=strtok(sentence," ");  //返回被分割出的子串
+ 　　
+ while(tokenPtr!=NULL) { 　　
+  cout<<tokenPtr<<'\n'; 　　
+  tokenPtr=strtok(NULL," "); 　　//第二次传入的第一个参数为NULL
+}
 //合并
 //注意参数和返回值都是引用！
 string& append(const string& str);
