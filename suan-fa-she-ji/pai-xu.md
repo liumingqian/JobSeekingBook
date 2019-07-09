@@ -16,6 +16,45 @@
 * 选择随机数：安全但生成随机数是昂贵的算法
 * 选择left和right的中值：比较好
 
+```cpp
+int partition(int *l, int left, int right)
+{
+	int tmp = l[right];
+	while (left != right)
+	{
+		while (left < right&&l[left] <= tmp)
+			left++;
+		if (left < right)
+		{
+			l[right] = l[left];
+			right--;
+		}
+			
+		while (left < right&&l[right] >= tmp)//这里不是left<=right!
+			right--;
+		if (left < right)//还有这里
+		{
+			l[left] = l[right];
+			left++;
+		}
+			
+	}
+	l[left] = tmp;
+	return left;
+}
+
+void QuickSort(int*l, int left, int right)
+{
+	if (left >= right)//leftright不合理返回
+		return;
+	int pivot = (left + right) / 2;//确定轴值并与最右交换
+	swap(l, right, pivot);
+	pivot = partition(l, left, right);//用partition函数把序列按轴值分成两块
+	QuickSort(l, left, pivot-1);//对这两块分别再quicksort
+	QuickSort(l, pivot+1, right);
+}
+```
+
 ### 树形排序-锦标赛算法
 
 需要2n的额外空间来表示一颗树，首先将待查找的所有数据拷贝到2n空间的末尾，作为树的叶子节点，两两比较叶子节点，将胜者依次放到n/2的节点。
@@ -61,4 +100,12 @@ void MinHeapCreate(int * array, int  heapSize)
     }  
 }  
 ```
+
+### TopK问题
+
+1.冒泡n次 
+
+2.堆排序 
+
+3.快排partition思想，返回pivot跟k进行比较，并递归的缩小区间直到pivot=k
 
