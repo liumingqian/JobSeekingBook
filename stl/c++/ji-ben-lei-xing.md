@@ -45,3 +45,8 @@ T& T::operator=(const T &myStr)//返回引用才可以连等赋值；传入常�
 }
 ```
 
+### NAN（not a number）
+
+* 0/0
+* 负数开偶次根
+
