@@ -168,7 +168,15 @@ void writeOnly()
 }
 ```
 
-对同一个rwmutex，线程可以同时有多个readLock，这些readLock会阻塞任意一个企图获得writeLock的线程，直到所有的readLock对象都析构。如果writeLock首先获得了rwmutex，那么它会阻塞任意一个企图在rwmutex上获得readLock或者writeLock的线程。
+read\_lock是共享锁：对同一个rwmutex，线程可以同时有多个readLock，这些readLock会阻塞任意一个企图获得writeLock的线程，直到所有的readLock对象都析构。
+
+write\_lock是独占锁：如果writeLock首先获得了rwmutex，那么它会阻塞任意一个企图在rwmutex上获得readLock或者writeLock的线程。
+
+#### 条件变量
+
+通常与互斥量一起使用，用来等待。
+
+通常情况是一个线程锁住一个互斥量，当它不能获得它期待的结果时，等待一个条件变量，直到另一个线程通知它条件满足了，唤醒该线程继续执行。
 
 #### Fork
 

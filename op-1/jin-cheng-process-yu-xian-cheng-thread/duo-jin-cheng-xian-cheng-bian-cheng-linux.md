@@ -1,4 +1,12 @@
-# 多进程/线程编程（Linux）
+---
+description: >-
+  POSIX 在IEEE Std 1003.1c-1995 （也称为POSIX 1995 或 POSIX.1c) 对线程库进行了标准化。开发人员称之为
+  POSIX线程，或简称为 Pthreads。Pthreads 是 UNIX 系统上 C 和 C++ 语言的主要线程解决方案。
+---
+
+# 多进程/线程编程（Posix）
+
+
 
 #### 创建线程
 

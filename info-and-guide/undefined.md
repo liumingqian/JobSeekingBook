@@ -26,7 +26,7 @@
 
 ### 马逸涵-字节短视频TA
 
-![](../.gitbook/assets/image%20%2845%29.png)
+![](../.gitbook/assets/image%20%2846%29.png)
 
 ### 周绍阳-字节短视频TA
 

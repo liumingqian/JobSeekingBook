@@ -53,7 +53,7 @@
   * [进程（process）与线程（thread）](op-1/jin-cheng-process-yu-xian-cheng-thread/README.md)
     * [线程模型](op-1/jin-cheng-process-yu-xian-cheng-thread/xian-cheng-mo-xing.md)
     * [多进程/线程编程（Windows\)](op-1/jin-cheng-process-yu-xian-cheng-thread/duo-jin-cheng-xian-cheng-bian-cheng-boost.md)
-    * [多进程/线程编程（Linux）](op-1/jin-cheng-process-yu-xian-cheng-thread/duo-jin-cheng-xian-cheng-bian-cheng-linux.md)
+    * [多进程/线程编程（Posix）](op-1/jin-cheng-process-yu-xian-cheng-thread/duo-jin-cheng-xian-cheng-bian-cheng-linux.md)
   * [反码补码源码](op-1/fan-ma-bu-ma-yuan-ma.md)
 * [数学](shu-xue/README.md)
   * [逻辑思维](shu-xue/luo-ji-si-wei.md)
