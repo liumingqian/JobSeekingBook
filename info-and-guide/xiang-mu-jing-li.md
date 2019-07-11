@@ -115,7 +115,9 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 
 ### 为了应用Airsim做了哪些工作？
 
-飞行控制器的主要工作是将期望状态作为输入，利用传感器数据估计实际状态，然后驱动电机使实际状态接近期望状态
+飞行控制器的主要工作是将期望状态作为输入，利用传感器数据估计实际状态，然后驱动电机使实际状态接近期望状态。例如，对于四旋翼，可以指定所需的状态为横摇、俯仰和偏航。然后利用陀螺仪和加速度计估计实际的横摇、俯仰和偏航。然后产生适当的电机信号，使实际状态变为期望状态。
+
+（[https://microsoft.github.io/AirSim/docs/flight\_controller/](https://microsoft.github.io/AirSim/docs/flight_controller/)）
 
 * 为多人模式进行了适配
   * 原先AirSim没有用playerController，直接在Pawn的初始化里绑定了轴和key来接受输入。然后在把输入控制放到playerController里的过程中遇到了一些初始化顺序问题，通过重载postLogin等掌握关键时间节点的函数保证了初始化顺序正确
