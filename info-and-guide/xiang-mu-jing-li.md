@@ -132,6 +132,7 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 
 * 涉及多个实体，运作机制复杂（模拟器、飞控模拟软件、地面站），多项配置（遥控器通道、遥控器校准、飞行模型选择、飞行模式选择，UDP网络配置）好比接口不同的两台机器，接口间还有相互依赖关系，需要参照px4和airsim的连线将线插到viwo上，需要对viwo、px4、airsim、mavlink等系统都有理解。
 * 资料少，从Airsim切入，但Airsim文档有些过期
+* 为了可扩展性封装实在太多层了。
 
 ### Unreal
 
