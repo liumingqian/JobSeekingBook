@@ -314,51 +314,11 @@ public class ProxyPatternDemo {
 }
 ```
 
-### 适配器模式
-
 将一个类的接口转换成客户希望的另外一个接口，使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。
 
 **缺点**：让系统凌乱，如果不是很有必要，可以不使用适配器，而是直接对系统进行重构
 
-### 装饰器模式
-
-### 建造者模式
-
-### **享元模式**
-
 \*\*\*\*
-
-### 迭代器模式
-
-迭代器模式就是分离了集合对象的遍历行为，抽象出一个迭代器类来负责，这样既可以做到不暴露集合的内部结构，又可让外部代码透明地访问集合内部的数据。
-
-```cpp
-void RenderTree::ForEach(std::function<void(RenderNode * const)> func)
-	{
-		for (auto & node : _renderNode)
-		{
-			func(node.second.get());
-		}
-	}
- //forEach函数定义↑，调用↓
- std::function<void(StaticRenderer::RenderNode* const)> func = [&](StaticRenderer::RenderNode* const node) {
-		::glLoadName(node->GetID());
-		ModelManager::DrawAABB(node, viewMat, newproject);
-	};
-	StaticRenderer::RenderTree::GetInstance()->ForEach(func);
-```
-
-
-
-### 观察者模式
-
-![](../.gitbook/assets/image%20%2870%29.png)
-
-**优点**：观察者和抽象者不直接耦合
-
-**注意**：观察者和被观察者不能循环依赖！
-
-
 
 ### MVC 模式
 
@@ -419,9 +379,51 @@ public class StudentController {
 }
 ```
 
+### 迭代器模式
+
+迭代器模式就是分离了集合对象的遍历行为，抽象出一个迭代器类来负责，这样既可以做到不暴露集合的内部结构，又可让外部代码透明地访问集合内部的数据。
+
+```cpp
+void RenderTree::ForEach(std::function<void(RenderNode * const)> func)
+	{
+		for (auto & node : _renderNode)
+		{
+			func(node.second.get());
+		}
+	}
+ //forEach函数定义↑，调用↓
+ std::function<void(StaticRenderer::RenderNode* const)> func = [&](StaticRenderer::RenderNode* const node) {
+		::glLoadName(node->GetID());
+		ModelManager::DrawAABB(node, viewMat, newproject);
+	};
+	StaticRenderer::RenderTree::GetInstance()->ForEach(func);
+```
+
+
+
+### 观察者模式
+
+![](../.gitbook/assets/image%20%2870%29.png)
+
+**优点**：观察者和抽象者不直接耦合
+
+**注意**：观察者和被观察者不能循环依赖！
+
+### 装饰器模式
+
+### **享元模式（原型模式）**
+
+**原型模式和拷贝构造函数的区别**
+
+原型模式实现的是clone接口，即，是基于多态的clone虚函数，因此原型模式能通过基类指针来复制派生类对象，拷贝构造函数则不行。
+
+### 适配器模式
+
+### 建造者模式
+
 ### **游戏循环**
 
-![](../.gitbook/assets/image%20%2889%29.png)
+![](../.gitbook/assets/image%20%2890%29.png)
 
 **参考资料**：
 

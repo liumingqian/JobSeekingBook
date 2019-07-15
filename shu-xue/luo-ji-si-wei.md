@@ -9,3 +9,7 @@
 
 [1073. 负二进制数相加](https://leetcode-cn.com/problems/adding-two-negabinary-numbers/)
 
+[过桥问题](http://blog.sina.com.cn/s/blog_ac9074a201018uyf.html)
+
+[倒水问题](https://blog.csdn.net/a_ran/article/details/17374277)
+

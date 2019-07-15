@@ -1,5 +1,7 @@
 # 项目经历
 
+**lambda表达式、函数指针、比较函数、桥接模式写法**
+
 **数学库更换**
 
 从核心类向外一圈一圈改，先把类里面的都改掉然后改接口，这样中间有很多可编译版本。CDVector用一个union保存struct{x,y,z}struct{X,Y,Z}、T mfecv\[3\],以满足多种数据需求，重载了各种运算符。
@@ -148,7 +150,7 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 
 ![](../.gitbook/assets/image%20%2865%29.png)
 
-![](../.gitbook/assets/image%20%2886%29.png)
+![](../.gitbook/assets/image%20%2887%29.png)
 
 client去获取它没有权限获得的GameMode的时候只会得到空指针
 
