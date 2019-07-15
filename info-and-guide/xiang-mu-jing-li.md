@@ -14,6 +14,8 @@ TiledViewport：：SharedMemoryCmd 用于向无人机主控发送命令的共享
 
 同时有一个job\_queue类负责存储这些任务。job\_queue用锁保证线程安全性，并封装了一些sortPush等功能。外部增加任务时尝试调用job\_queue的try\_push函数。
 
+Tex、Dem、Mask、BoundingBox等数据
+
 #### viwo插件模式
 
 clientCore：pluginManager：autoLoadPlugins，根据配置文件的路径读取到插件名，然后再根据插件名到xml目录下找对应的插件的xml文件。对于一个插件模块，InvokePluginInit函数通过调用GetProcAddress去找模块中叫Init的函数，完成dll的初始化。
@@ -51,6 +53,8 @@ clientCore：pluginManager：autoLoadPlugins，根据配置文件的路径读取
 可视化：场景漫游、大规模场景的实时绘制。环境仿真（不同季节不同时段）、气象仿真、海洋仿真、粒子特效、阴影
 
 ### 地形四叉树
+
+## 飞控项目
 
 ![](../.gitbook/assets/image%20%281%29.png)
 
@@ -96,7 +100,9 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 
 #### 局部坐标系
 
-由于地球半径太大，直接画会有一米左右的误差
+由于地球半径太大，直接画会有一米左右的误差，乘完view矩阵就会变小，所以在Cpu乘完再传给shader
+
+#### 地形数据库
 
 ### 地形编辑
 
@@ -107,7 +113,9 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 * 增加版本信息避免异步更新下层数据，请求父节点数据时获取到的不是最新的数据
 * 注意边界问题以防止修改后出现T-junction
 
-## 飞控项目
+### ECS架构
+
+将Airsim中的无人机传感器仿真部分及无人机飞行控制库PX4集成到实验室自研的Viwo引擎中
 
 ### AirSim是做什么的？
 
@@ -149,6 +157,10 @@ client去获取它没有权限获得的GameMode的时候只会得到空指针
 * playerState:代表player的所有信息，也是拷贝给每个人的，这样每个client都知道所有玩家的信息。当切换地图或者断线重连的时候，playerState保存了之前的游戏状态
 
 ## 2D地图模块
+
+飞机视景camera的direction投影在地球球面上的向量就是飞机在墨卡托投影地图上的方向。 将cameraDir投影至地球球面相当于将该向量投影在cameraEyeVector、经度方向、纬度方向正交构成的局部坐标系中。
+
+这个局部坐标系由北极方向和eyeVector叉乘得到纬度方向，纬度方向和eyeVector叉乘再得到经度方向
 
 ### camera2D怎么工作?
 
