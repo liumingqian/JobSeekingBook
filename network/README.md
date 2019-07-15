@@ -36,6 +36,12 @@
 
 负责域名到ip地址的转换。一个域名可以对应多个IP地址。DNS使用TCP和UDP
 
+#### 子网掩码
+
+用于划分子网。默认的子网掩码255.255.255.0表示该子网划分出的子网容量是256，但子网里第一个ip和最后一个ip不可用，可用地址只有254个。255.255.255.252表示子网容量是4，每个子网里可用地址是2个
+
+[https://baijiahao.baidu.com/s?id=1606474671793061553&wfr=spider&for=pc](https://baijiahao.baidu.com/s?id=1606474671793061553&wfr=spider&for=pc)
+
 #### ref
 
 [Rpc服务和HTTP服务对比](https://blog.csdn.net/wangyunpeng0319/article/details/78651998)
