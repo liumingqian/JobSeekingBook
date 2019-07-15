@@ -1,5 +1,9 @@
 # 高级特性
 
+## 
+
+
+
 ## STL ：Allocator
 
 new 一个对象的时候先调用::operator new 分配一个对象大小的内存，然后在这个内存上调用FOO::FOO\(\)构造对象。同样，当你delete 一个对象的时候先调用FOO::~FOO\(\) 析构掉对象，再调用::operator delete将对象所处的内存释放。为了精密分工，STL 将allocator决定将这两个阶段分开。分别用 4 个函数来实现：
