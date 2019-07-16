@@ -1,6 +1,6 @@
 # 项目经历
 
-**lambda表达式、函数指针、比较函数（std::greater\)、桥接模式写法、智能指针线程安全问题，实现**
+**lambda表达式、函数指针、比较函数（std::greater\)、桥接模式写法、bind**
 
 **数学库更换**
 
@@ -33,8 +33,6 @@ clientCore：pluginManager：autoLoadPlugins，根据配置文件的路径读取
 * opengl没有单位，但三维软件导出fbx有单位，在导出时会根据软件系统单位和要导出的单位，对模型数据添加一个缩放因子，此时会导致部分网格被缩放的非常小。
 
 ### 模型动画
-
-[https://mp.weixin.qq.com/s?\_\_biz=Mzg2NzA4MTkxNQ==&mid=2247485649&idx=1&sn=8c1f4acceb6db2a3c5e024f17649187a&chksm=ce404305f937ca1350d38d0e13b72384a64c9e24499bb2296da2ecd8217b850f7cb387d99926&scene=0&xtrack=1&key=95b17fddd06e963c4c5c9096af2ef147a033732b8f2340132161dfb910ca2002e862cc1fa56bd7e3e03e6cae7ac4714a0aaaba483ce6eae3fd2bed8ee6c79862e098a3a27fb1b2aeb215ee12e3645a61&ascene=1&uin=MTIyODM5ODk2NA%3D%3D&devicetype=Windows+10&version=62060833&lang=zh\_CN&pass\_ticket=4wfz5PJOtu4iI8yF1EeL428j%2FsKuwfVIVjc8TDAuEk48XY6CD6fJljw0tJi1mh3J](https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&mid=2247485649&idx=1&sn=8c1f4acceb6db2a3c5e024f17649187a&chksm=ce404305f937ca1350d38d0e13b72384a64c9e24499bb2296da2ecd8217b850f7cb387d99926&scene=0&xtrack=1&key=95b17fddd06e963c4c5c9096af2ef147a033732b8f2340132161dfb910ca2002e862cc1fa56bd7e3e03e6cae7ac4714a0aaaba483ce6eae3fd2bed8ee6c79862e098a3a27fb1b2aeb215ee12e3645a61&ascene=1&uin=MTIyODM5ODk2NA%3D%3D&devicetype=Windows+10&version=62060833&lang=zh_CN&pass_ticket=4wfz5PJOtu4iI8yF1EeL428j%2FsKuwfVIVjc8TDAuEk48XY6CD6fJljw0tJi1mh3J)
 
 ## Viwo
 
@@ -213,6 +211,12 @@ gltf、反射、RTTI，opengl shader，ecs架构，px4飞控
 ### 你熟悉和用过的设计模式？
 
 单例（懒汉饿汉）、工厂\(游戏开发）、桥接、命令模式（gameplay\)、观察者模式（viwo）、原型模式（Unreal\)、mvc、ecs
+
+### 你想问的问题？
+
+入职后承担的工作和项目，合作的氛围，项目上线前的工作流
+
+
 
 
 

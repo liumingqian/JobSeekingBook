@@ -1,20 +1,56 @@
 # 高级特性
 
+## C++11
+
+### std::move
+
+move语义意味着该类将转移对象的所有权，而不是复制对象。
+
+std::move解决了以下问题： 
+
+1、产生资源的函数应当返回资源，但智能指针会在离开作用域时析构资源
+
+```cpp
+??? generateResource()
+{
+     Resource *r = new Resource;
+     return Auto_ptr1(r);
+}
+
+//move语义的实现在std::auto_ptr中通过重载赋值构造和拷贝构造函数来实现，如：
+Auto_ptr2(Auto_ptr2& a) // note: not const
+{
+	m_ptr = a.m_ptr; // transfer our dumb pointer from the source to our local object
+	a.m_ptr = nullptr; // make sure the source no longer owns the pointer
+}
+
+Auto_ptr2& operator=(Auto_ptr2& a) // note: not const
+{
+	if (&a == this)
+		return *this;
+ 
+	delete m_ptr; // make sure we deallocate any pointer the destination is already holding first
+	m_ptr = a.m_ptr; // then transfer our dumb pointer from the source to the local object
+	a.m_ptr = nullptr; // make sure the source no longer owns the pointer
+	return *this;
+}
+```
+
+2、解决拷贝带来开销的问题，延长右值生命期
+
+```cpp
+//①
+template<class T>
+void myswap(T& a, T& b) 
+{ 
+  T tmp { std::move(a) }; // invokes move constructor
+  a = std::move(b); // invokes move assignment
+  b = std::move(tmp); // invokes move assignment
+}
+
+//②
+v.push_back(std::move(str));
+```
+
 ## 
-
-
-
-## STL ：Allocator
-
-new 一个对象的时候先调用::operator new 分配一个对象大小的内存，然后在这个内存上调用FOO::FOO\(\)构造对象。同样，当你delete 一个对象的时候先调用FOO::~FOO\(\) 析构掉对象，再调用::operator delete将对象所处的内存释放。为了精密分工，STL 将allocator决定将这两个阶段分开。分别用 4 个函数来实现：
-
-　　1.内存的配置：alloc::allocate\(\);
-
-　　2.对象的构造：::construct\(\);
-
-　　3.对象的析构：::destroy\(\);
-
-　　4.内存的释放：alloc::deallocate\(\);
-
-假设你有一个特殊的 fast\_allocator，能快速分配和释放内存（也许通过放弃线程安全性，或使用一个小的局部堆）
 

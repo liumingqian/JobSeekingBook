@@ -1,8 +1,46 @@
+---
+description: 'https://www.jianshu.com/p/1a62a5d66005 https://www.jianshu.com/p/77c2988be336'
+---
+
 # 智能指针
+
+智能指针的存在是为了更好的管理堆内存。它是一种专门用于管理指针对象的类模板，它本身是一个分配在栈上的对象，因此能正确的析构。
+
+### auto\_ptr存在的问题
+
+* 用非数组delete删除内容，不能正确的管理动态分配的数组
+* auto\_ptr的赋值和构造实现了move语义。按值传参时会把资源所有权转移给函数，将在函数末尾被销毁。
+* auto\_ptr不能很好地处理标准库中的容器和算法（标准库类的拷贝构造函数都使用copy语义而不是move语义）
+
+#### [std::move](gao-ji-te-xing.md#std-move)
+
+### 智能指针使用注意
+
+* 对于unique\_ptr直接向函数中传递resource更好。
+* 使用make\_unique和make\_shared比直接new更安全，更明确。（c++14）
+* 如果能使用unique\_ptr尽量使用unique\_ptr，避免别的程序员不合理的使用shared\_ptr，也避免shared\_ptr没有及时释放资源，不恰当的延长了资源的生命周期。
+* shared\_ptr不要循环引用
+* ```cpp
+  //不要多次释放同一个资源
+  Auto_ptr1<Resource> res1(new Resource);
+  Auto_ptr1<Resource> res2(res1); 
+
+  //不要用同一个资源构造多个智能指针
+  Resource *res = new Resource;
+  std::unique_ptr<Resource> res1(res);
+  std::unique_ptr<Resource> res2(res);
+
+  //构造智能指针后不要再操作raw pointer内存
+  Resource *res = new Resource;
+  std::unique_ptr<Resource> res1(res);
+  delete res;
+  ```
 
 ### Unique\_ptr
 
-直接向函数中传递是不行的 use\(ptr\);//不work。直接向函数中传递resource更好。Unique\_ptr可以管理数组
+Unique\_ptr可以管理数组。
+
+unique\_ptr禁用赋值和拷贝构造，如果需要传输unique\_ptr，必须使用move。
 
 ```cpp
 std::unique_ptr<Resource> res1(new Resource); // Resource created here
@@ -18,32 +56,16 @@ std::unique_ptr<Resource> createResource()
  //像函数中传值时可以这样用，此时资源的所有权被转移到takeOwnership()，
  //因此资源在takeOwnership()的末尾而不是main()的末尾被销毁。
  //但是大多数情况下，您不希望函数拥有资源的所有权。虽然您可以通过引用传递std::unique_ptr
- //(这将允许函数使用对象而不假设拥有所有权)，但是您应该只在调用的函数可能更改或更改正在管理的对象时才这样做
+ //(这将允许函数使用对象而不假设拥有所有权)，但是您应该只在调用的函数可能更改正在管理的对象时才这样做
 takeOwnership(std::move(ptr)); 
 //更好的做法
 useResource(ptr.get());//直接传递资源
 
-//！以下是会出现问题的写法！：
-//不要多次释放同一个资源
-Auto_ptr1<Resource> res1(new Resource);
-Auto_ptr1<Resource> res2(res1); 
-
-//不要用同一个资源构造多个智能指针
-Resource *res = new Resource;
-std::unique_ptr<Resource> res1(res);
-std::unique_ptr<Resource> res2(res);
-
-//构造智能指针后不要再操作raw pointer内存
-Resource *res = new Resource;
-std::unique_ptr<Resource> res1(res);
-delete res;
 ```
 
-#### make\_unique
-
-make\_unique只是把参数完美转发给要创建对象的构造函数，更推荐make\_unique而不是自己new，看着更清楚，并解决了一个异常安全问题
-
 ### shared\_ptr
+
+注意，c++14及以前的版本里shared\_ptr不支持数组。shared\_ptr的引用计数是线程安全的，但读取需要加锁，避免主线程中已经释放了shared\_ptr，子线程还在使用。
 
 ```cpp
 Resource *res = new Resource;
@@ -70,13 +92,89 @@ weak\_ptr只能从shared\_ptr或者weak\_ptr构造，它是弱引用，不能直
 
 ### 实现
 
-智能指针是模板类，需要实现的内容包括：
+智能指针是模板类，成员包括：
 
 * raw 指针
-* 一个int\*类型的计数器
-* 拷贝构造函数和赋值构造函数
+* 一个int\*类型的计数器，这样拷贝和赋值构造的时候就可以对计数器进行改变
+
+还需要实现：
+
 * 重载解引用符号\*
 * 重载取成员符号-&gt;
+* explicit **operation bool\(\)** const，使智能指针可以直接用if判空。增加explicit关键字禁止隐式的类型转换，否则在比较p1==p2的时候编译器会为了使两个对象能相互比较而进行隐式转换。
+
+需要注意：
+
+* shared\_ptr需要实现拷贝构造函数和赋值构造函数，可以实现一个counter类负责引用计数，在赋值和拷贝的时候操作计数。
+* unique\_ptr需要用delete关键字禁止编译器产生拷贝和赋值构造函数
+* 如果构造函数只接受一个实参，则它实际上定义了转换此类类型的隐式转换机制，有时我们把这种构造函数称为转换构造函数\(converting constructor\)，要在构造函数声明前增加explicit禁止这种转换。
 
 unique\_ptr:自定义删除函数
+
+```cpp
+template <class _Ty>
+class SmartPtr
+{
+public:
+	SmartPtr(_Ty* ptr) :_refptr(new RefPtr(ptr)) {};
+	SmartPtr(const SmartPtr& obj)
+	{
+		if (this != &obj)
+		{
+			if (_refptr)
+			{
+				*(_refptr->_count) -= 1;
+				if (*(_refptr->_count) == 0)
+				{
+					delete _refptr;
+				}
+			}
+
+			_refptr = obj._refptr;
+			*(_refptr->_count) += 1;
+		}	
+	}
+
+	SmartPtr& operator=(const SmartPtr& obj)
+	{
+		if (this != &obj)
+		{
+			if (_refptr)
+			{
+				*(_refptr->_count) -= 1;
+				if (*(_refptr->_count) == 0)
+				{
+					delete _refptr;
+				}
+			}
+
+			_refptr = obj._refptr;
+			*(_refptr->_count) += 1;
+		}
+		return *this;
+	}
+
+	~SmartPtr()
+	{
+		*(_refptr->_count) -= 1;
+		if (*(_refptr->_count) == 0)
+		{
+			delete _refptr;
+		}
+	}
+
+	int use_count() { return *(_refptr->_count); }
+
+private:
+	class RefPtr                   //辅助类，用于保存引用计数 和 实际对象
+	{                              //  之所以需要使用辅助类，而不是直接用int _count和 _Ty* 成员变量    
+		friend class SmartPtr;     //  是为了能否封装住 _count和_Ty* 这些变量，对外不可见
+		RefPtr(_Ty* ptr) :_ptr(ptr) { _count = new int(1);  };
+		~RefPtr() { if (_ptr) delete _ptr; delete _count; };
+		int* _count;
+		_Ty* _ptr;
+	};
+	RefPtr* _refptr;
+};
+```
 

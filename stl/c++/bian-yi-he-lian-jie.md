@@ -52,3 +52,41 @@ dll和lib的区别：
 * 解决头文件环形引用的困境
 * 一定程度上提高编译速度
 
+### 内联函数
+
+调用内联函数时，并不真正的执行中断调用函数，保存运行状态并执行内联函数的过程，而是直接把内联函数代码嵌入程序的调用点，大大减少调用成员函数的时间开销，所以对于短小而常用的函数可以声明为内联函数。
+
+```cpp
+//声明一个内联函数
+inline const string &  
+shorterString(const string &s1, const string &s2)  
+{  
+return s1.size() <= s2.size() ? s1 : s2;  
+}  
+  
+//那么当我们执行：  
+cout << shorterString(s1, s2) << endl;  
+//其实编译时会变成：  
+cout << (s1.size() < s2.size() ? s1 : s2) << endl; 
+```
+
+编译器对内联函数有判断：如果不合理，就算声明了inline，编译器也作为普通函数处理。而类体内定义的成员函数如果不包含循环等控制结构，则编译器自动将其视为内联函数处理。
+
+注意：如果在类体外定义类的内联成员函数，需要将类定义和该成员函数定义放在一个头文件中，否则编译时无法进行置换。
+
+```cpp
+class Student  
+{  
+   public : inline void display( );//声明此成员函数为内置函数  
+   private :  
+   int num;  
+   string name;  
+   char sex;  
+};  
+
+inline void Student::display( ) //在类外定义内置函数，需要和类定义放在同一文件中  
+{  
+   cout<<"num:"<<num<<endl;cout<<"name:"<<name<<endl;cout<<"sex:"<<sex<<endl;  
+}
+```
+
