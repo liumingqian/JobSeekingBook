@@ -13,7 +13,7 @@ description: >-
 
 **构造**：
 
-![](../.gitbook/assets/image%20%284%29.png)
+![](../.gitbook/assets/image%20%285%29.png)
 
 **碰撞检测方法**：直接将两个AABB包围盒投影到三个坐标轴，查看投影是否有交集。
 
@@ -39,9 +39,9 @@ step-3: 把C加入到树中,判断是否有交集,方法与step-2中一样,最�
 
 两个凸多边形物体，如果我们能找到一个轴，使得两个在物体在该轴上的投影互不重叠，则这两个物体之间没有碰撞发生，该轴为分离轴Separating Axis。一般以垂直于多边形每条边的垂线作为轴。
 
-![](../.gitbook/assets/image%20%2818%29.png)
+![](../.gitbook/assets/image%20%2819%29.png)
 
-![](../.gitbook/assets/image%20%2828%29.png)
+![](../.gitbook/assets/image%20%2829%29.png)
 
 将每个矩形的四个顶点投影投影到轴上，并计算四个顶点间最长的连线距离，判断两个矩形的投影距离是否有重叠。
 

@@ -89,11 +89,11 @@ int main()
 
 ### 三种类继承方式
 
-![](../../.gitbook/assets/image%20%2815%29.png)
+![](../../.gitbook/assets/image%20%2816%29.png)
 
-![](../../.gitbook/assets/image%20%2841%29.png)
+![](../../.gitbook/assets/image%20%2843%29.png)
 
-![](../../.gitbook/assets/image%20%2840%29.png)
+![](../../.gitbook/assets/image%20%2842%29.png)
 
 ### 基类与派生类关系
 

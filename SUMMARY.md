@@ -19,6 +19,7 @@
     * [引用、指针、数组](stl/c++/yin-yong-zhi-zhen-shu-zu.md)
     * [智能指针](stl/c++/zhi-neng-zhi-zhen.md)
     * [友元](stl/c++/you-yuan.md)
+    * [函数指针和Lambda](stl/c++/han-shu-zhi-zhen-he-lambda.md)
     * [Trick](stl/c++/trick.md)
     * [高级特性](stl/c++/gao-ji-te-xing.md)
   * [STL标准模板库](stl/stl/README.md)

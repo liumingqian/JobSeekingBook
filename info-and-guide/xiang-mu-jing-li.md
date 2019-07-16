@@ -22,9 +22,15 @@ Tex、Dem、Mask、BoundingBox等数据
 
 clientCore：pluginManager：autoLoadPlugins，根据配置文件的路径读取到插件名，然后再根据插件名到xml目录下找对应的插件的xml文件。对于一个插件模块，InvokePluginInit函数通过调用GetProcAddress去找模块中叫Init的函数，完成dll的初始化。
 
-## 模型处理
+## 场景构建
+
+用实验室自研的场景编辑器进行场景构建，修改模型错误，编辑场景物体的运动
 
 ### 模型序列化
+
+### 模型渲染
+
+![](../.gitbook/assets/image%20%281%29.png)
 
 ### 模型错误修正
 
@@ -33,6 +39,22 @@ clientCore：pluginManager：autoLoadPlugins，根据配置文件的路径读取
 * opengl没有单位，但三维软件导出fbx有单位，在导出时会根据软件系统单位和要导出的单位，对模型数据添加一个缩放因子，此时会导致部分网格被缩放的非常小。
 
 ### 模型动画
+
+点击生成行车路线，用三弯矩方程构造三次样条曲线。
+
+动画基类定义时钟，动画播放状态（loop，once，back&forth等）
+
+RotationSimpleAnimation定义角速度和旋转矩阵
+
+TranslationSimpleAnimation定义起点和终点
+
+### 改进
+
+增强鲁棒性，增加报错信息和警告，提示缺少资源等问题。
+
+规范化animation，使其可以从配置文件中读取。
+
+兼容关键帧动画。
 
 ## Viwo
 
@@ -52,11 +74,11 @@ clientCore：pluginManager：autoLoadPlugins，根据配置文件的路径读取
 
 可视化：场景漫游、大规模场景的实时绘制。环境仿真（不同季节不同时段）、气象仿真、海洋仿真、粒子特效、阴影
 
-### 地形四叉树
+每层地形块x的坐标范围为0-2^\(level+1\)-1,y的坐标范围为0-2^level-1‌
 
-## 飞控项目
+#### 局部坐标系
 
-![](../.gitbook/assets/image%20%281%29.png)
+由于地球半径太大，直接画会有一米左右的误差，乘完view矩阵就会变小，所以在Cpu乘完再传给shader
 
 每层地形块x的坐标范围为0-2^\(level+1\)-1,y的坐标范围为0-2^level-1
 
@@ -78,11 +100,7 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 
 最后还需根据相机高度更新相机，如果相机高度很高，则需要等比例的缩放视锥。
 
-#### LRU
-
-核心数据结构是两个双端队列一个hashmap，第一个双端队列相当于一个内存池，初始化时分配了所有节点，第二个队列保存了cache的时序信息，hashmap保证可以在O\(1\)的时间内，根据key取到地形块。quadTreeLRU保存了每个节点的子节点信息，从LRU中删除cache时会同时移除该节点的所有子节点（如果存在的话）
-
-#### 分裂策略
+### 受限地形四叉树分裂算法
 
 1、相邻地形块层级相差太大会有T型裂缝问题，解决：
 
@@ -98,9 +116,13 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
     * 所有节点初始为叶子节点（叶子结点为最终绘制的节点），分裂后被修改成内部节点
     * 如果判断该块不够精细，需要细分，首先求其四个孩子的包围盒（或从db里读取）判断可见性，设置孩子的邻居节点并放入待分裂节点队列
 
-#### 局部坐标系
+#### 
 
-由于地球半径太大，直接画会有一米左右的误差，乘完view矩阵就会变小，所以在Cpu乘完再传给shader
+### 地形数据管理
+
+#### LRU
+
+核心数据结构是两个双端队列一个hashmap，第一个双端队列相当于一个内存池，初始化时分配了所有节点，第二个队列保存了cache的时序信息，hashmap保证可以在O\(1\)的时间内，根据key取到地形块。quadTreeLRU保存了每个节点的子节点信息，从LRU中删除cache时会同时移除该节点的所有子节点（如果存在的话）
 
 #### 地形数据库
 
@@ -114,6 +136,8 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 * 注意边界问题以防止修改后出现T-junction
 
 ### ECS架构
+
+## 飞控项目
 
 将Airsim中的无人机传感器仿真部分及无人机飞行控制库PX4集成到实验室自研的Viwo引擎中
 
@@ -146,9 +170,9 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 
 #### server—client网络模型  
 
-![](../.gitbook/assets/image%20%2865%29.png)
+![](../.gitbook/assets/image%20%2867%29.png)
 
-![](../.gitbook/assets/image%20%2887%29.png)
+![](../.gitbook/assets/image%20%2891%29.png)
 
 client去获取它没有权限获得的GameMode的时候只会得到空指针
 
@@ -175,9 +199,11 @@ client去获取它没有权限获得的GameMode的时候只会得到空指针
    2. 前半边中2\*pi\*r是圆周长，pi\*r是墨卡托下从南极到北极的距离，pi\*r/c是墨卡托坐标系下地图的长宽比，乘上小窗口height得到小窗口的理论宽度。后半边求得的是相机照到的实际宽度的一半。
    3. 数据源将地图分割成256\*256的小块
 
-![](../.gitbook/assets/image%20%2824%29.png)
+![](../.gitbook/assets/image%20%282%29.png)
 
-![](../.gitbook/assets/image%20%2839%29.png)
+![](../.gitbook/assets/image%20%2825%29.png)
+
+![](../.gitbook/assets/image%20%2841%29.png)
 
 ## **调试方法**
 
@@ -214,7 +240,7 @@ gltf、反射、RTTI，opengl shader，ecs架构，px4飞控
 
 ### 你想问的问题？
 
-入职后承担的工作和项目，合作的氛围，项目上线前的工作流
+入职后承担的工作和项目，合作的氛围，项目上线前的工作流，入职前准备，从哪得知面试评价
 
 
 

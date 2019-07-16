@@ -86,7 +86,7 @@ auto ptr2 = ptr1;
 
 weak\_ptr只能从shared\_ptr或者weak\_ptr构造，它是弱引用，不能直接管理资源，也不参与资源引用计数，解决了智能指针循环引用无法释放的问题。
 
-![](../../.gitbook/assets/image%20%2885%29.png)
+![](../../.gitbook/assets/image%20%2889%29.png)
 
  因为weak\_ptr本身不会增加引用计数，所以它指向的对象可能在用的时候已经被释放了，所以在用之前需要使用`expired`函数来检测是否过期，然后使用`lock`函数来获取其对应的`shared_ptr`对象，然后进行后续操作。
 
