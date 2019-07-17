@@ -8,15 +8,15 @@
 
 ### 平移
 
-![](../.gitbook/assets/image%20%2870%29.png)
+![](../.gitbook/assets/image%20%2871%29.png)
 
 ### 旋转
 
-![](../.gitbook/assets/image%20%2828%29.png)
+![](../.gitbook/assets/image%20%2829%29.png)
 
 ### 缩放
 
-![](../.gitbook/assets/image%20%2892%29.png)
+![](../.gitbook/assets/image%20%2893%29.png)
 
 因此应用变换的顺序是缩放-&gt;旋转-&gt;平移。
 
@@ -46,13 +46,13 @@ ref:[https://blog.csdn.net/faithmy509/article/details/82705368](https://blog.csd
 
 ### 投影矩阵
 
-![](../.gitbook/assets/image%20%2851%29.png)
+![](../.gitbook/assets/image%20%2852%29.png)
 
 实际上只是一个缩放和z上平移的矩阵。
 
 ![](../.gitbook/assets/image%20%2813%29.png)
 
-![](../.gitbook/assets/image%20%2861%29.png)
+![](../.gitbook/assets/image%20%2862%29.png)
 
 ### 齐次坐标
 

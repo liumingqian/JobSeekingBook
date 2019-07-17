@@ -28,15 +28,47 @@ clientCore：pluginManager：autoLoadPlugins，根据配置文件的路径读取
 
 ### 模型序列化
 
+#### Gltf
+
+* 是啥？
+
+khronos推出的，致力于使其成为3D界的JPEG那样的通用格式的一种格式。目前支持多种常用的三维软件通过插件直接读写gltf格式，比如Maya、3dmax、unity等等，assimp也支持了gltf格式的读写。
+
+* 为啥要用？
+
+1、glTF = The GL Transmission Format，使用gltf可以享受三维数据格式统一的好处，并避免各个三维软件间处理大量的导入/导出脚本有缩放问题，动画问题，纹理绑定问题，材质问题。甚至连opengl中的纹理平铺方法这类的属性都保存下来，保证效果一定是对的了。2、对GL的api非常友好，可以用glBufferData将每个缓冲区加载到GPU中，然后用glVertexAttribPointer解析每个访问器，以绑定到缓冲区中每个顶点元素的位置。3、使用pbr材质模型
+
+* 为什么不合并bufferview和Accessor？
+
+ 如果一个bufferview里的数据是pos\|normal\|pos\|normal这样排布的话，一个bufferView可以对应多个accessor来正确解释数据
+
+* 工作流
+
+用libgltf解析gltf\(其实是json格式），然后根据bufferView和Accessor解析buffer，用boost库解析base64编码的字段。
+
+对网格按material排序，按数据种类分别传入，并在读入position的时候计算包围盒（gltf给了minmax\)，对于索引数组要转uint
+
+#### 遇到的问题
+
+模型画不出来：没有设置单位和比例
+
+网格破碎：obj的index从1开始，glDrawElement的参数是面片数\*3，assimp的mesh index都是从0开始
+
+累加的index爆short
+
+纹理是黑的：glTexStorage之后用glTexImage填充内存，应该用glSubTexImage2D
+
+路径中文乱码：boost库把string转成wstring
+
 ### 模型渲染
 
 ![](../.gitbook/assets/image%20%281%29.png)
 
 ### 模型错误修正
 
-#### 调试技巧
+在三维软件中查看数据，将fbx写成可读模式查看，用assimp的后处理参数修正、导出正确的单位和比例，相对路径设置。
 
-* opengl没有单位，但三维软件导出fbx有单位，在导出时会根据软件系统单位和要导出的单位，对模型数据添加一个缩放因子，此时会导致部分网格被缩放的非常小。
+调试：尝试画部分网格，glgetError，画包围盒
 
 ### 模型动画
 
@@ -48,7 +80,9 @@ RotationSimpleAnimation定义角速度和旋转矩阵
 
 TranslationSimpleAnimation定义起点和终点
 
-### 改进
+#### 改进
+
+instance绘制的逻辑不应该由程序员负责，应该内部收集instance节点并决定要不要进行instance绘制。
 
 增强鲁棒性，增加报错信息和警告，提示缺少资源等问题。
 
@@ -78,9 +112,9 @@ TranslationSimpleAnimation定义起点和终点
 
 #### 局部坐标系
 
-由于地球半径太大，直接画会有一米左右的误差，乘完view矩阵就会变小，所以在Cpu乘完再传给shader
+由于地球半径太大，直接画会有一米左右的误差，导致地形闪烁、骨骼动画物理模拟失真等问题，乘完view矩阵就会变小，所以在Cpu乘完再传给shader
 
-每层地形块x的坐标范围为0-2^\(level+1\)-1,y的坐标范围为0-2^level-1
+每层地形块x的坐标范围为0-2^\(level+1\)-1,y的坐标范围为0-2^level-1，三层是128个块
 
 #### 层数确定和比例换算
 
@@ -108,15 +142,16 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 * 在粗糙的地形块边缘补上很多点（出现很多狭长的三角形）
 * 受限分裂：大块限制小块分裂（突然转向的时候，粗糙块会限制原本精细的块分裂）
 * 受限分裂：小块带动大块分裂
-  * 基于可见性把所有最高层的节点放入待分裂节点队列
-  * 设置父节点的邻居关系设置孩子节点的邻居关系
-    * 如果相邻层数差不超过1，直接设成邻居
-    * 不满足则对相邻块强制分裂
-  * 从待分裂队列中取出节点（宽度优先），进行分裂（深度优先分裂）
-    * 所有节点初始为叶子节点（叶子结点为最终绘制的节点），分裂后被修改成内部节点
-    * 如果判断该块不够精细，需要细分，首先求其四个孩子的包围盒（或从db里读取）判断可见性，设置孩子的邻居节点并放入待分裂节点队列
 
-#### 
+2、受限分裂算法
+
+* 基于可见性把所有最高层的节点放入待分裂节点队列
+* 设置父节点的邻居关系设置孩子节点的邻居关系
+  * 如果相邻层数差不超过1，直接设成邻居
+  * 不满足则对相邻块强制分裂
+* 从待分裂队列中取出节点（宽度优先），进行分裂（深度优先分裂）
+  * 所有节点初始为叶子节点（叶子结点为最终绘制的节点），分裂后被修改成内部节点
+  * 如果判断该块不够精细，需要细分，首先求其四个孩子的包围盒（或从db里读取）判断可见性，设置孩子的邻居节点并放入待分裂节点队列
 
 ### 地形数据管理
 
@@ -124,7 +159,27 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 
 核心数据结构是两个双端队列一个hashmap，第一个双端队列相当于一个内存池，初始化时分配了所有节点，第二个队列保存了cache的时序信息，hashmap保证可以在O\(1\)的时间内，根据key取到地形块。quadTreeLRU保存了每个节点的子节点信息，从LRU中删除cache时会同时移除该节点的所有子节点（如果存在的话）
 
+#### 异步地形数据请求
+
+* dataCache:
+
+地形数据（dem、tex、mask\)、地形数据状态（available, required, not available, data interpolated）、时间戳
+
+* MTDataCacheManager：
+
+管理Cache请求的类。
+
+封装一个job类和一个jobQueue，和一个jobWorker,jobWorker包含一个jobQueue，对应线程池（boost thread group），初始化的时候将处理函数传递给它，jobWorker调用处理函数对job进行处理。
+
+线程池初始化的时候就创建好若干线程，线程中反复检查工作队列数据，只要有数据就处理，知道处理工作完成
+
+限制了每帧请求数目和每帧最大请求数目避免任务堆积。
+
+地形数据异步的从db里获取，纹理和数据用pbo传输数据到GPU，不包含异步调用，在主循环每次循环中串行调用（FrameExecute）
+
 #### 地形数据库
+
+mask db和boundingbox db生成。boundingbox db把一个块和直接子块打包在一起，查找起来快一些。由于地形块边界经纬度能算，所以boundingbox数据只有高度的minmax两个数据
 
 ### 地形编辑
 
@@ -135,7 +190,56 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 * 增加版本信息避免异步更新下层数据，请求父节点数据时获取到的不是最新的数据
 * 注意边界问题以防止修改后出现T-junction
 
-### ECS架构
+#### 改进
+
+* 部分受限分裂的四叉树：远处看不清楚不一定要分裂
+* 对飞行方向进行预测
+* 线程数，每帧最大请求数调优
+
+## GamePlay
+
+### Ecs架构
+
+设计要点：
+
+* 组件通信的方法
+  * 通过消息系统（PX4）
+  * 组件间相互引用
+* 对象获取组件的方法
+  * 对象创建组件（麻烦，不灵活）
+  * ~~配置文件~~
+
+优点：
+
+1. C是纯数据，很方便做快照和回滚
+2. S只包含行为，容易进行并行优化处理
+3. 方便处理同一system内对象间的交互关系
+
+#### object
+
+* name和id
+* rtti支持
+  * static const Rtti TYPE
+  * 保存本类名和基类的rtti对象指针
+  * typedef baseType uper
+* 反射
+  * 类存储函数名到函数构造函数的映射关系，一个模板类实例保存同一个继承树（Actor、ActorComponent\)内所有类的构造函数
+
+#### component
+
+* sceneComponent
+  * relative/world/local分别以parent、world和自己为坐标系原点
+    * world是根据relative进行更新的，AddworldPos等相对当前worldpos设置位移时，首先用相对parent的缩放旋转对delta进行变换，从而计算正确的worldPos
+    * 根据worldpos更新relativePos（InternalSetWorldPosition）需要首先得到正确的worldTranslation，然后进行relative变换的逆变换，将其变换到relative坐标系下
+    * 设置local时要把delta变换到relative的坐标系中
+    * 变换时子节点要递归的变换
+  * add/set
+  * 获取up/right/forword轴：用worldtransformation分别对x（-1，0，0，0）yz轴进行旋转
+* GeometryComponent
+
+#### 寻路
+
+
 
 ## 飞控项目
 
@@ -170,9 +274,9 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 
 #### server—client网络模型  
 
-![](../.gitbook/assets/image%20%2867%29.png)
+![](../.gitbook/assets/image%20%2868%29.png)
 
-![](../.gitbook/assets/image%20%2891%29.png)
+![](../.gitbook/assets/image%20%2892%29.png)
 
 client去获取它没有权限获得的GameMode的时候只会得到空指针
 
@@ -191,7 +295,7 @@ client去获取它没有权限获得的GameMode的时候只会得到空指针
 工作流：
 
 1. 3D相机更新位置
-2. 计算rate：小地图宽度/相机所照到的实际宽度
+2. 计算rate：小地图宽度 / 相机所照到的实际宽度
 
    double rate = _\(PI \*_ g_coord.getShortAxis\(\) \* camera_-&gt;GetWindowHeight\(\)\) / \(40075453 \* _camera\_-&gt;GetElevation\(\) \*_ tan\(camera\_-&gt;GetFovy\(\) / 2 \* PI / 180\)\);
 
@@ -201,9 +305,11 @@ client去获取它没有权限获得的GameMode的时候只会得到空指针
 
 ![](../.gitbook/assets/image%20%282%29.png)
 
-![](../.gitbook/assets/image%20%2825%29.png)
+![](../.gitbook/assets/image%20%2826%29.png)
 
-![](../.gitbook/assets/image%20%2841%29.png)
+![](../.gitbook/assets/image%20%2842%29.png)
+
+## **Unity游戏开发**
 
 ## **调试方法**
 
@@ -232,7 +338,7 @@ client去获取它没有权限获得的GameMode的时候只会得到空指针
 
 ### 你用过最厉害的技术是什么？
 
-gltf、反射、RTTI，opengl shader，ecs架构，px4飞控
+gltf（巧妙）、ecs架构（反射、RTTI，逻辑庞大），px4飞控（复杂），地形分裂算法
 
 ### 你熟悉和用过的设计模式？
 

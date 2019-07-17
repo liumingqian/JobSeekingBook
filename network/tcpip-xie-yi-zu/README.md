@@ -7,7 +7,7 @@
 * 网络层：IP协议、ICMP协议
 * 应用层：http、ftp、Telnet、SMTP、DNS
 
-![](../../.gitbook/assets/image%20%2833%29.png)
+![](../../.gitbook/assets/image%20%2834%29.png)
 
 ### IP协议
 
@@ -49,7 +49,7 @@ Tcp连接是双向的，前两次挥手用于断开一个方向的连接，后�
 * 第四次：A收到释放请求后向B发送确认应答，此时A进入TIME-WAIT状态，该状态持续2MSL时间，如果该时间段内B没有重发请求，A就进入CLOSED状态，撤销TCB。B收到A的确认应答后也进入CLOSED状态，撤销TCB。
   * TIME-WAIT状态是为了保证B能收到A的应答，如果A发送的确认应答丢失了，B等待超时后就会重新发送释放请求，如果A直接CLOSED的话就不会做出任何响应，导致B永远无法正常关闭
 
-![](../../.gitbook/assets/image%20%2872%29.png)
+![](../../.gitbook/assets/image%20%2873%29.png)
 
 ### TCP协议的可靠性机制
 
@@ -63,7 +63,7 @@ TCP的可靠性体现在传输数据之前，三次握手建立连接（四次�
 
 TCP通过滑动窗口来进行流量控制。在发送端发送数据的速度很快而接收端接收速度却很慢的情况下，为了保证数据不丢失，需要进行流量控制协调好通信双方的工作节奏。
 
-![](../../.gitbook/assets/image%20%2876%29.png)
+![](../../.gitbook/assets/image%20%2877%29.png)
 
 #### socket
 

@@ -6,7 +6,7 @@ a•b = \|a\|\|b\|cosθ = a1b1+a2b2+……anbn
 
 点乘的结果是一个标量，等于向量大小与夹角的cos值的乘积，如果a和b都是单位向量，那么点乘的结果就是其夹角的cos值。
 
-![&#x5411;&#x91CF;&#x6295;&#x5F71;&#xFF0C;&#x6EE1;&#x8DB3;&#x4EA4;&#x6362;&#x5F8B;](../.gitbook/assets/image%20%2831%29.png)
+![&#x5411;&#x91CF;&#x6295;&#x5F71;&#xFF0C;&#x6EE1;&#x8DB3;&#x4EA4;&#x6362;&#x5F8B;](../.gitbook/assets/image%20%2832%29.png)
 
 ![&#x6EE1;&#x8DB3;&#x5206;&#x914D;&#x7387;](../.gitbook/assets/image%20%286%29.png)
 
@@ -14,9 +14,9 @@ a•b = \|a\|\|b\|cosθ = a1b1+a2b2+……anbn
 
 向量a 和b 叉乘, 得到一个垂直于a 和b的向量a ×b , 它的方向由右手螺旋法则确定, 它的长度是a和b张开的平行四边形的面积。
 
-![&#x5176;&#x5B9E;&#x5E94;&#x5F53;&#x4E3A;\|a\|&#xB7;\|b\|&#xB7;sin&#x3B8;&#xB7;n&#xFF0C;\|a\|&#xB7;\|b\|&#xB7;sin&#x3B8;&#x8868;&#x5927;&#x5C0F;&#xFF0C;&#x5411;&#x91CF;n&#x8868;&#x6CD5;&#x7EBF;&#x65B9;&#x5411;](../.gitbook/assets/image%20%2840%29.png)
+![&#x5176;&#x5B9E;&#x5E94;&#x5F53;&#x4E3A;\|a\|&#xB7;\|b\|&#xB7;sin&#x3B8;&#xB7;n&#xFF0C;\|a\|&#xB7;\|b\|&#xB7;sin&#x3B8;&#x8868;&#x5927;&#x5C0F;&#xFF0C;&#x5411;&#x91CF;n&#x8868;&#x6CD5;&#x7EBF;&#x65B9;&#x5411;](../.gitbook/assets/image%20%2841%29.png)
 
-![](../.gitbook/assets/image%20%2824%29.png)
+![](../.gitbook/assets/image%20%2825%29.png)
 
 注意：U×V和V×U,大小相等，方向因为右手法则旋转方向相反而相反。
 
@@ -27,19 +27,19 @@ a•b = \|a\|\|b\|cosθ = a1b1+a2b2+……anbn
 * 不直观
 * 节省空间，插值方便，不会死锁
 
-![](../.gitbook/assets/image%20%2859%29.png)
+![](../.gitbook/assets/image%20%2860%29.png)
 
-![](../.gitbook/assets/image%20%2875%29.png)
+![](../.gitbook/assets/image%20%2876%29.png)
 
 其中α为旋转的角度，cos
 
-![](../.gitbook/assets/image%20%2834%29.png)
+![](../.gitbook/assets/image%20%2835%29.png)
 
 ### 点到直线的距离
 
 * 点到直线距离
 
-![](../.gitbook/assets/image%20%2865%29.png)
+![](../.gitbook/assets/image%20%2866%29.png)
 
 * 用叉乘求点到直线距离
 
@@ -47,7 +47,7 @@ a•b = \|a\|\|b\|cosθ = a1b1+a2b2+……anbn
 
 ### 判断点在三角形内
 
-![](../.gitbook/assets/image%20%2849%29.png)
+![](../.gitbook/assets/image%20%2850%29.png)
 
 * 叉乘
 
@@ -63,7 +63,7 @@ a•b = \|a\|\|b\|cosθ = a1b1+a2b2+……anbn
 
 ### 判断点是否在多边形内部
 
-![](../.gitbook/assets/image%20%2858%29.png)
+![](../.gitbook/assets/image%20%2859%29.png)
 
 ![](../.gitbook/assets/image%20%2814%29.png)
 
