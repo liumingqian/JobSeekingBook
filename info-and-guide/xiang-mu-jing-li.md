@@ -274,9 +274,9 @@ mask db和boundingbox db生成。boundingbox db把一个块和直接子块打包
 
 #### server—client网络模型  
 
-![](../.gitbook/assets/image%20%2868%29.png)
+![](../.gitbook/assets/image%20%2869%29.png)
 
-![](../.gitbook/assets/image%20%2892%29.png)
+![](../.gitbook/assets/image%20%2894%29.png)
 
 client去获取它没有权限获得的GameMode的时候只会得到空指针
 

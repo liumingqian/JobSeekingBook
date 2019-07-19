@@ -59,7 +59,7 @@ void QuickSort(int*l, int left, int right)
 
 需要2n的额外空间来表示一颗树，首先将待查找的所有数据拷贝到2n空间的末尾，作为树的叶子节点，两两比较叶子节点，将胜者依次放到n/2的节点。
 
-![](../.gitbook/assets/image%20%2881%29.png)
+![](../.gitbook/assets/image%20%2883%29.png)
 
 选出最小值后，将叶子节点中的13改为INF，并重新从叶子节点的13的位置出发，更新树。
 

@@ -8,7 +8,7 @@
 
 ### 平移
 
-![](../.gitbook/assets/image%20%2871%29.png)
+![](../.gitbook/assets/image%20%2873%29.png)
 
 ### 旋转
 
@@ -16,7 +16,7 @@
 
 ### 缩放
 
-![](../.gitbook/assets/image%20%2893%29.png)
+![](../.gitbook/assets/image%20%2895%29.png)
 
 因此应用变换的顺序是缩放-&gt;旋转-&gt;平移。
 
@@ -52,7 +52,7 @@ ref:[https://blog.csdn.net/faithmy509/article/details/82705368](https://blog.csd
 
 ![](../.gitbook/assets/image%20%2813%29.png)
 
-![](../.gitbook/assets/image%20%2862%29.png)
+![](../.gitbook/assets/image%20%2863%29.png)
 
 ### 齐次坐标
 
