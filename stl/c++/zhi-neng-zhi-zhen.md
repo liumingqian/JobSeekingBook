@@ -80,6 +80,8 @@ auto ptr1 = std::make_shared<Resource>();
 //拷贝创建
 auto ptr2 = ptr1;
 //从unique_ptr move过来
+
+
 ```
 
 ### weak\_ptr
@@ -95,24 +97,95 @@ weak\_ptr只能从shared\_ptr或者weak\_ptr构造，它是弱引用，不能直
 智能指针是模板类，成员包括：
 
 * raw 指针
-* 一个int\*类型的计数器，这样拷贝和赋值构造的时候就可以对计数器进行改变
 
 还需要实现：
 
 * 重载解引用符号\*
 * 重载取成员符号-&gt;
-* explicit **operation bool\(\)** const，使智能指针可以直接用if判空。增加explicit关键字禁止隐式的类型转换，否则在比较p1==p2的时候编译器会为了使两个对象能相互比较而进行隐式转换。
+* 使智能指针可以直接用if判空：
 
-需要注意：
+  explicit **operator bool\(\)** const。增加explicit关键字禁止隐式的类型转换，否则在比较p1==p2的时候编译器会为了使两个对象能相互比较而进行隐式转换。
 
+* 禁止隐式类型转换：如果构造函数只接受一个实参，则它实际上定义了转换此类类型的隐式转换机制，有时我们把这种构造函数称为转换构造函数\(converting constructor\)，要在构造函数声明前增加explicit禁止这种转换。
+* 在析构函数中清空指针内存
+* reset函数：unique\_ptr释放当前指针，shared\_ptr减少当前指针引用计数，如果为0就析构
+
+unique\_ptr的实现：
+
+[ref](https://blog.csdn.net/liushengxi_root/article/details/80672901)
+
+* 禁止编译器产生拷贝和赋值构造函数（用delete关键字），但要实现从右值引用拷贝和赋值构造的函数（实现move语义）
+
+{% code-tabs %}
+{% code-tabs-item title="unique\_ptr的move语义" %}
+```cpp
+/* 不支持拷贝与赋值   */
+unique_ptr(const unique_ptr&) = delete;
+unique_ptr& operator=(const unique_ptr&) = delete;
+
+/*可以拷贝或者赋值一个将要被销毁的 unique_ptr（右值引用）*/
+unique_ptr(unique_ptr&& right_value) :
+    un_ptr(right_value.un_ptr), del(std::move(right_value.del)) {
+    right_value.un_ptr = nullptr;
+}
+unique_ptr& operator=(unique_ptr&& right_value) noexcept {
+    if (this != &right_value) {
+        std::cout << "operator && right_value " << std::endl;
+        del(*this);
+        un_ptr = right_value.un_ptr;
+        del = std::move(right_value.del);
+        right_value.un_ptr = nullptr;
+    }
+    return *this;
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+* 实现release函数，释放对指针的控制权：
+
+{% code-tabs %}
+{% code-tabs-item title="unique\_ptr的release实现" %}
+```cpp
+T* release() {
+    T *tmp = un_ptr;
+    un_ptr = nullptr;
+    return  tmp;
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+* 实现reset函数，清空当前指针：
+
+{% code-tabs %}
+{% code-tabs-item title="unique\_ptr的reset实现" %}
+```cpp
+	void reset() { del(un_ptr); }
+	void reset(T* q) {
+		if (un_ptr) {
+			del(un_ptr);
+			un_ptr = q;
+		}
+		else
+			un_ptr = nullptr;
+	}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+shared\_ptr的实现：
+
+[ref](https://blog.csdn.net/liushengxi_root/article/details/80598430)
+
+* 一个int\*类型的计数器，这样拷贝和赋值构造的时候就可以对计数器进行改变
 * shared\_ptr需要实现拷贝构造函数和赋值构造函数，可以实现一个counter类负责引用计数，在赋值和拷贝的时候操作计数。
-* unique\_ptr需要用delete关键字禁止编译器产生拷贝和赋值构造函数，但要实现从右值引用拷贝和赋值构造的函数（move语义）
-* 如果构造函数只接受一个实参，则它实际上定义了转换此类类型的隐式转换机制，有时我们把这种构造函数称为转换构造函数\(converting constructor\)，要在构造函数声明前增加explicit禁止这种转换。
 
-unique\_ptr:自定义删除函数
-
+{% code-tabs %}
+{% code-tabs-item title="shared\_ptr实现" %}
 ```cpp
 template <class _Ty>
+
 class SmartPtr
 {
 public:
@@ -177,4 +250,6 @@ private:
 	RefPtr* _refptr;
 };
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 

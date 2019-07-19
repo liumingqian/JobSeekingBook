@@ -37,6 +37,10 @@ void buffer = malloc(sizeof(ClassA));
 ClassA ptr = new(buffer)ClassA();
 ```
 
+#### delete
+
+delete判断指针是否为空然后调用free函数。
+
 #### std::allocator
 
 std::allocator 类模板是所有标准库容器所用的默认分配器。有allocate（分配未初始化的内存）、deallocate、construct（在分配的内存中构造对象）、destroy（析构在已分配的内存中构造的对象）等方法。
