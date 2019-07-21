@@ -18,7 +18,7 @@
 
 [ref:https://blog.csdn.net/qq\_26399665/article/details/79831490](https://blog.csdn.net/qq_26399665/article/details/79831490) 
 
-
+[https://mp.weixin.qq.com/s?\_\_biz=Mzg2NzA4MTkxNQ==&mid=2247485699&idx=1&sn=05d48f11e437b6983d6d6650e1f65710&chksm=ce4042d7f937cbc1ae9399fa954a4aec300be4f00183520576bcd7d25a9e9567bba455089c4f&scene=0&xtrack=1&key=6049ea3782f5de5456ff6e580138323be3173c7cf422de16373a5b43d527ea8f7f4949d75017b683e0c8a5c568295877acfec232abf2ed0bde0cd487e7f68c21b590e9a7de07b26576df49d865aca396&ascene=1&uin=MTIyODM5ODk2NA%3D%3D&devicetype=Windows+10&version=62060833&lang=zh\_CN&pass\_ticket=cMBEk4XC9FbEO9it9f4Bq3fcavODQ6QPNzr4Bv7vPTDIcKRUBANNWCvzSsAcp%2FSG](https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&mid=2247485699&idx=1&sn=05d48f11e437b6983d6d6650e1f65710&chksm=ce4042d7f937cbc1ae9399fa954a4aec300be4f00183520576bcd7d25a9e9567bba455089c4f&scene=0&xtrack=1&key=6049ea3782f5de5456ff6e580138323be3173c7cf422de16373a5b43d527ea8f7f4949d75017b683e0c8a5c568295877acfec232abf2ed0bde0cd487e7f68c21b590e9a7de07b26576df49d865aca396&ascene=1&uin=MTIyODM5ODk2NA%3D%3D&devicetype=Windows+10&version=62060833&lang=zh_CN&pass_ticket=cMBEk4XC9FbEO9it9f4Bq3fcavODQ6QPNzr4Bv7vPTDIcKRUBANNWCvzSsAcp%2FSG)
 
 ### 二项分布
 

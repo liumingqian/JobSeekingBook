@@ -13,6 +13,9 @@ max_element(first,end,cmp);
 
 //对容器内容进行翻转
 void reverse (BidirectionalIterator first, BidirectionalIterator last);
+
+//遍历容器
+for_each(iv.begin(), iv.end(), [=](int &x)->int{return x * (a + b);});
 ```
 
 
