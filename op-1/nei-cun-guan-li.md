@@ -93,11 +93,35 @@ ref:[虚拟内存与物理内存的联系与区别](https://blog.csdn.net/lvyibi
 * 最近最少使用（LRU\):按访问时间排序，比起NRU，LRU除了考虑最近使用时间，还考虑最近使用频率。简单做法是每次用到页面都将其放到链表开头。
 * 最近不经常使用（LFU）：按访问频次排序，访问一次频次加一，淘汰访问频次最少的数据
   * 算法：
+
     1. 新加入数据插入到队列尾部（因为引用计数为1）；
     2. 队列中的数据被访问后，引用计数增加，队列重新排序；
     3. 当需要淘汰数据时，将已经排序的列表最后的数据块删除。 一般是把访问次数为1 的都删除掉。
 
-{% embed url="https://www.cnblogs.com/edisonchou/p/5094066.html" %}
+#### 置换算法实现
+
+注意get操作中如果key存在，首先要重置value值。
+
+FIFO:deque作为fifo队列，一个map保存某个元素是否在队列中
+
+LRU:用一个map保存key和链表节点的对应关系
+
+```cpp
+struct CacheNode {
+  int key;      // 键
+  int value;    // 值
+  CacheNode *pre, *next;  // 节点的前驱、后继指针
+  CacheNode(int k, int v) : key(k), value(v), pre(NULL), next(NULL) {}
+};
+LRUCache(int capacity)
+{
+  size = capacity;      // 容量
+  head = NULL;          // 链表头指针
+  tail = NULL;          // 链表尾指针
+}
+```
+
+LFU:用一个map保存访问次数和该次数的所有节点
 
 ### 分段内存管理
 

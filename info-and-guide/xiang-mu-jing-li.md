@@ -157,7 +157,7 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 
 #### LRU
 
-核心数据结构是两个双端队列一个hashmap，第一个双端队列相当于一个内存池，初始化时分配了所有节点，第二个队列保存了cache的时序信息，hashmap保证可以在O\(1\)的时间内，根据key取到地形块。quadTreeLRU保存了每个节点的子节点信息，从LRU中删除cache时会同时移除该节点的所有子节点（如果存在的话）
+核心数据结构是两个双端队列一个hashmap，第一个双端队列相当于一个内存池\(dequeUnused\)，初始化时分配了所有节点，第二个队列保存了cache的时序信息\(dequeUsed\)，hashmap保证可以在O\(1\)的时间内，根据key取到地形块。quadTreeLRU保存了每个节点的子节点信息，从LRU中删除cache时会同时移除该节点的所有子节点（如果存在的话）
 
 #### 异步地形数据请求
 
