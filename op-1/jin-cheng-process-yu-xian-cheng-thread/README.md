@@ -94,13 +94,36 @@ description: >-
 
      数据结构为一个值和一个指针，指针指向等待该信号量的下一个进程。只有PV操作会改变信号量的值，值大于0代表剩余资源数量，值小于0代表正在等待使用该资源的进程数。
 
-* PV操作：P操作原语和V操作原语组成（原语是不可中断的过程）。
+* PV操作：P操作原语（wait）和V操作原语（signal）组成（原语是不可中断的过程）。
 
     P请求资源，P操作导致信号量减1，如果信号量的值小于0，则该进程进入阻塞队列
 
     V释放资源，信号量加1，从阻塞队列头部取出一个进程进入就绪态
 
     PV操作成对出现，先进行P操作进入临界区，然后进行V操作出临
+
+```cpp
+//生产者进程结构
+do{
+     wait(empty) ;
+     wait(mutex) ;
+    
+     add nextp to buffer
+    
+     signal(mutex) ;
+     signal(full) ;
+}while(1) ;
+//消费者进程结构
+do{
+     wait(full) ;
+     wait(mutex) ;
+    
+     remove an item from buffer to nextp
+    
+     signal(mutex) ;
+     signal(empty) ;
+}while(1) ;
+```
 
 #### 事件
 
