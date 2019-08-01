@@ -30,6 +30,29 @@
 
 编译期进行，不能保证下行转换的安全，即使转换失败也不返回null
 
+### union和struct
+
+{% code-tabs %}
+{% code-tabs-item title="union的应用" %}
+```cpp
+//数据的多种解释方式
+union
+{
+    T m_fVec[3];
+    struct
+    {
+        T X, Y, Z;
+    };
+    struct
+    {
+        T x, y, z;
+    };
+};
+//测试大小端（
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 ### 运算符和表达式
 
 #### 运算符优先级
