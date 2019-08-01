@@ -110,7 +110,7 @@ weak\_ptr只能从shared\_ptr或者weak\_ptr构造，它是弱引用，不能直
 * 在析构函数中清空指针内存
 * reset函数：unique\_ptr释放当前指针，shared\_ptr减少当前指针引用计数，如果为0就析构
 
-unique\_ptr的实现：
+#### unique\_ptr的实现
 
 [ref](https://blog.csdn.net/liushengxi_root/article/details/80672901)
 
@@ -174,7 +174,7 @@ T* release() {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-shared\_ptr的实现：
+#### shared\_ptr的实现
 
 [ref](https://blog.csdn.net/liushengxi_root/article/details/80598430)
 
@@ -252,4 +252,10 @@ private:
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+#### weak\_ptr实现
+
+weak\_ptr怎么知道shared\_ptr是否还存在?
+
+如果有weak\_ptr指向shared\_ptr，则shared\_ptr的引用计数器的int\*在shared\_ptr销毁内存时不能销毁，由weak\_ptr检查该计数器内存时可以知道shared\_ptr的引用计数已经为0，最后由weak\_ptr释放该计数器的内存。
 
