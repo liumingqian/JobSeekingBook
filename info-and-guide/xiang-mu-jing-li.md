@@ -168,21 +168,19 @@ g\_screenUnit=（FrustumRight-FrustumLeft）/窗口宽度（像素）\*distance/
 
 #### 异步地形数据请求
 
-* dataCache:
-
-地形数据（dem、tex、mask\)、地形数据状态（available, required, not available, data interpolated）、时间戳
-
 * MTDataCacheManager：
 
-管理Cache请求的类。
+管理Cache请求的类。地形数据异步的从db里获取，纹理和数据用pbo传输数据到GPU，不包含异步调用，在主循环每次循环中串行调用（FrameExecute）
+
+**线程池**
 
 封装一个job类和一个jobQueue，和一个jobWorker,jobWorker包含一个jobQueue，对应线程池（boost thread group），初始化的时候将处理函数传递给它，jobWorker调用处理函数对job进行处理。
 
-线程池初始化的时候就创建好若干线程，线程中反复检查工作队列数据，只要有数据就处理，知道处理工作完成
+线程池初始化的时候就创建好若干线程，线程中反复检查工作队列数据，只要有数据就处理，直到处理工作完成。限制了每帧请求数目和每帧最大请求数目避免任务堆积。
 
-限制了每帧请求数目和每帧最大请求数目避免任务堆积。
+**地形数据获取**
 
-地形数据异步的从db里获取，纹理和数据用pbo传输数据到GPU，不包含异步调用，在主循环每次循环中串行调用（FrameExecute）
+有三种dataCache:dem、tex、mask，当分裂地形四叉树获取某块的时候，如果在lru中找不到就会创建一个任务，每个cache有数据状态的属性（available, required, not available, data interpolated）。获取时把cache加入lru并设置其状态为required,
 
 #### 地形数据库
 
@@ -255,11 +253,15 @@ mask db和boundingbox db生成。boundingbox db把一个块和直接子块打包
 
 ## 飞控项目
 
-将Airsim中的无人机传感器仿真部分及无人机飞行控制库PX4集成到实验室自研的Viwo引擎中
+将Airsim中的无人机传感器仿真部分及无人机飞行控制库PX4集成到实验室自研的Viwo引擎中，
 
 ### AirSim是做什么的？
 
 模拟器是无人机在真实世界里的视觉呈现，Airsim是飞控到渲染引擎的一个桥梁，支持了simpleFlight、px4、ardupilot等多种飞控库，接受用户输入的指令，经包装（mavlink）发送给飞控库，并接收解算结果，指导渲染引擎的渲染。Airsim用unreal自带的一些组件如WheeledVehicle、rotationMovementComponent等，提供了默认的无人机和无人车模型，使用户可以快速的即插即用的获得无人机无人车仿真体验。
+
+
+
+px4可以直接运行在真机上，因此没有传感器信息和环境信息。
 
 ### 为了应用Airsim做了哪些工作？
 
@@ -279,6 +281,7 @@ mask db和boundingbox db生成。boundingbox db把一个块和直接子块打包
 飞行控制器的主要工作是将期望状态作为输入，利用传感器数据估计实际状态，然后驱动电机使实际状态接近期望状态。即，预测未来，修正当下。目前工业界经常用扩展卡尔曼滤波器（ekf）进行无人机多传感器融合。
 
 * 涉及多个实体，运作机制复杂（模拟器、飞控模拟软件、地面站），多项配置（遥控器通道、遥控器校准、飞行模型选择、飞行模式选择，UDP网络配置）好比接口不同的两台机器，接口间还有相互依赖关系，需要参照px4和airsim的连线将线插到viwo上，需要对viwo、px4、airsim、mavlink等系统都有理解。
+* 无法断点调试，模拟效果跟更新频率有关，涉及网络和多线程。
 * 资料少，从Airsim切入，但Airsim文档有些过期
 * 为了可扩展性封装实在太多层了。
 
