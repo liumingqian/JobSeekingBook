@@ -139,7 +139,8 @@ var len;    // 因为声明的多个函数都需要数据长度，所以把len�
 function buildMaxHeap(arr) {   // 建立大顶堆
     len = arr.length;
     for (var i = Math.floor(len/2); i >= 0; i--) {
-        heapify(arr, i);//自底向上依次调整所有层（表示二叉树的数组的前半截是内部节点，后半截是叶子节点）
+    //自底向上依次调整叶节点以外的所有层（数组的前半截是内部节点，后半截是叶子节点）
+        heapify(arr, i);
     }
 }
 
