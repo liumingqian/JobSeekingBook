@@ -9,6 +9,9 @@
 [滑雪](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/description/)
 
 * 序列型
+
+[连续子数组](https://blog.csdn.net/a940902940902/article/details/79281542)
+
 *  双序列型
 
   双序列的动态规划一般是告诉你两个字符串或者两个序列。
