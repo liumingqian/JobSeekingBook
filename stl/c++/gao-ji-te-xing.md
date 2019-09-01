@@ -52,5 +52,5 @@ void myswap(T& a, T& b)
 v.push_back(std::move(str));
 ```
 
-## 
+
 
