@@ -34,7 +34,7 @@ strlen返回值不包括字符串结尾\0。
 
 char * strcpy( char *strDest, const char *strSrc )      //对输入加const
 {     
-	if(strDest == strSrc) { return strDest; }  //判重
+	if(strDest == strSrc) { return strDest; }  //判重（标准库中的strcpy和strncpy不考虑重叠，如果内存发生重叠结果未定义
 	assert( (strDest != NULL) && (strSrc != NULL) ); //判空    
 	char *address = strDest;      
 	while( (*strDest++ = * strSrc++) != '\0' );      

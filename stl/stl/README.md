@@ -26,3 +26,6 @@ ref:h[ttps://blog.csdn.net/gogokongyin/article/details/51206225](https://blog.cs
 
 [https://blog.csdn.net/qq\_37964547/article/details/81160505](https://blog.csdn.net/qq_37964547/article/details/81160505)
 
+### EffectiveSTL
+
+stl容器可以保证多线程同时读的安全，但为了效率，没有保证多线程同时写的安全
