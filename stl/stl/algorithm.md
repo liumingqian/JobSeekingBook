@@ -16,6 +16,17 @@ void reverse (BidirectionalIterator first, BidirectionalIterator last);
 
 //遍历容器
 for_each(iv.begin(), iv.end(), [=](int &x)->int{return x * (a + b);});
+
+//find_if:pred是一个判断iterator是否在范围内的函数
+template<class InputIterator, class UnaryPredicate>
+  InputIterator find_if (InputIterator first, InputIterator last, UnaryPredicate pred)
+{
+  while (first!=last) {
+    if (pred(*first)) return first;
+    ++first;
+  }
+  return last;
+}
 ```
 
 

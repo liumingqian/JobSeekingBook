@@ -13,3 +13,4 @@
 
 [倒水问题](https://blog.csdn.net/a_ran/article/details/17374277)
 
+[扔鸡蛋问题](https://www.cnblogs.com/jostree/p/4098409.html)
