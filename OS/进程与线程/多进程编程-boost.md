@@ -209,7 +209,7 @@ write\_lock是独占锁：如果writeLock首先获得了rwmutex，那么它会�
 
 
 ```
-bool pop(job_type& x)
+      bool pop(job_type& x)
 	{
 		lock_type lock(m_mutex);
 
