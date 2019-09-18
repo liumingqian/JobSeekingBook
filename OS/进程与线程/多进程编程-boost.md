@@ -213,7 +213,7 @@ write\_lock是独占锁：如果writeLock首先获得了rwmutex，那么它会�
 - notify_all:唤醒所有等待的线程
 
 ```cpp
-bool pop(job_type& x)//消费者队列的pop函数
+bool pop(job_type& x)//生产者消费者队列的pop函数
 {
 	lock_type lock(m_mutex);
 
@@ -233,11 +233,19 @@ bool pop(job_type& x)//消费者队列的pop函数
 }
       
 //唤醒线程
-void stop()
+bool try_push(const job_type &x)
 {
-	m_stop_flag = true;
-	m_hasJob.notify_all();	//启动pop里的while循环
+		try_lock_type lock(m_mutex);
+		if(!lock.owns_lock())
+			return false;
+
+		m_queue.push_back(x);
+		++m_unfinished_tasks;
+		m_hasJob.notify_one();//启动pop里的while循环
+
+		return true;
 }
+
 ```
 
 
