@@ -204,7 +204,27 @@ write\_lock是独占锁：如果writeLock首先获得了rwmutex，那么它会�
 
 通常与互斥量一起使用，用来等待。
 
-通常情况是一个线程锁住一个互斥量，当它不能获得它期待的结果时，等待一个条件变量，直到另一个线程通知它条件满足了，唤醒该线程继续执行。
+通常情况（生产者消费者队列）是一个线程持有锁之后，调用wait等待一个条件变量，并将自己加入到唤醒队列中，直到另一个线程通知它条件满足了，该线程被唤醒继续持有锁运行。
+
+
+
+```
+bool pop(job_type& x)
+	{
+		lock_type lock(m_mutex);
+
+		while(m_queue.empty() && !m_stop_flag)
+		{
+			m_hasJob.wait(m_mutex);// stop的时候，此处引发的等待会notify_all被取消
+		}
+
+		if(m_stop_flag)return false;
+		
+		x = m_queue.front();
+		m_queue.pop_front();
+		return true;
+	}
+```
 
 
 
