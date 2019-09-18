@@ -207,10 +207,9 @@ write\_lock是独占锁：如果writeLock首先获得了rwmutex，那么它会�
 通常情况（生产者消费者队列）是一个线程持有锁之后，调用wait等待一个条件变量，并将自己加入到唤醒队列中，直到另一个线程通知它条件满足了，该线程被唤醒继续持有锁运行。
 
 
-
-```
+```cpp
       bool pop(job_type& x)
-	{
+      {
 		lock_type lock(m_mutex);
 
 		while(m_queue.empty() && !m_stop_flag)
@@ -223,7 +222,7 @@ write\_lock是独占锁：如果writeLock首先获得了rwmutex，那么它会�
 		x = m_queue.front();
 		m_queue.pop_front();
 		return true;
-	}
+      }
 ```
 
 
