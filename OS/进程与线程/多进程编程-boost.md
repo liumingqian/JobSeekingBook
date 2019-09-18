@@ -241,7 +241,7 @@ bool try_push(const job_type &x)
 
 		m_queue.push_back(x);
 		++m_unfinished_tasks;
-		m_hasJob.notify_one();//启动pop里的while循环
+		m_hasJob.notify_one();//此时本线程持有锁，启动pop里的while循环
 
 		return true;
 }
