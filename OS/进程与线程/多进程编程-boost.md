@@ -221,6 +221,7 @@ write\_lock是独占锁：如果writeLock首先获得了rwmutex，那么它会�
 		return true;
       }
       
+      //唤醒线程
       void stop()
 	  {
 		m_stop_flag = true;
