@@ -202,31 +202,42 @@ write\_lock是独占锁：如果writeLock首先获得了rwmutex，那么它会�
 
 #### 条件变量
 
-通常与互斥量一起使用，用来等待。
+通常与互斥量一起使用，用来等待。与条件变量搭配使用的「锁」，必须是 unique_lock.
+
+
 
 通常情况（生产者消费者队列）是一个线程持有锁之后，调用wait等待一个条件变量，wait揭开持有的互斥锁，阻塞本线程，并将自己加入到唤醒队列中，直到另一个线程通知它条件满足了，该线程被唤醒继续持有锁运行。
 
+##### 唤醒线程
+- notify_one:随机唤醒一个等待的线程
+- notify_all:唤醒所有等待的线程
 
 ```cpp
-      bool pop(job_type& x)//消费者队列的pop函数
-      {
-		lock_type lock(m_mutex);//线程获取锁
+bool pop(job_type& x)//消费者队列的pop函数
+{
+	lock_type lock(m_mutex);
 
-		while(m_queue.empty())//如果不满足期待的结果就调用wait进行等待
-		{
-			m_hasJob.wait(m_mutex);
-		}		
-		x = m_queue.front();
-		m_queue.pop_front();
-		return true;
-      }
+//条件变量被通知后，挂起的线程就被唤醒，但是唤醒也有可能是假唤醒，或者是因为超时等异常情况
+//所以被唤醒的线程仍要检查条件是否满足，所以 wait 是放在条件循环里面
+
+	while(m_queue.empty() && !m_stop_flag)
+	{
+		m_hasJob.wait(m_mutex);// stop的时候，此处引发的等待会notify_all被取消
+	}
+
+	if(m_stop_flag)return false;
+		
+	x = m_queue.front();
+	m_queue.pop_front();
+	return true;
+}
       
-      //唤醒线程
-      void stop()
-	  {
-		m_stop_flag = true;
-		m_hasJob.notify_all();	//启动pop里的while循环
-	  }
+//唤醒线程
+void stop()
+{
+	m_stop_flag = true;
+	m_hasJob.notify_all();	//启动pop里的while循环
+}
 ```
 
 
