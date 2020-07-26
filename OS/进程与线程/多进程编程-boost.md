@@ -101,7 +101,7 @@ c++11中有四个互斥对象同于同步多个线程对共享资源的访问。
 
 * mutex：最基本的互斥对象
 * timed\_mutex:带有超时机制的互斥对象，允许等待一段时间，超时后仍未获得互斥对象的所有权时放弃等待。
-* recursive\_mutex:递归互斥锁，可以被同一个线程多次加锁，以获得对互斥锁对象的多层所有权。当获取锁的函数间有相互调用的关系，如果使用非递归锁就会立即死锁。
+* recursive\_mutex:递归互斥锁（可重入锁），可以被同一个线程多次加锁，以获得对互斥锁对象的多层所有权。当获取锁的函数间有相互调用的关系，如果使用非递归锁就会立即死锁。
 * recursive\_timed\_mutex
 
 ```cpp
@@ -202,9 +202,49 @@ write\_lock是独占锁：如果writeLock首先获得了rwmutex，那么它会�
 
 #### 条件变量
 
-通常与互斥量一起使用，用来等待。
+通常与互斥量一起使用，用来等待。与条件变量搭配使用的「锁」，必须是 unique_lock.
 
-通常情况是一个线程锁住一个互斥量，当它不能获得它期待的结果时，等待一个条件变量，直到另一个线程通知它条件满足了，唤醒该线程继续执行。
+
+通常情况（生产者消费者队列）是一个线程持有锁之后，调用wait等待一个条件变量，wait解开持有的互斥锁，阻塞本线程，并将自己加入到唤醒队列中，直到另一个线程通知它条件满足了，该线程被唤醒继续持有锁运行。
+
+##### 生产者消费者队列
+- notify_one:随机唤醒一个等待的线程
+- notify_all:唤醒所有等待的线程
+条件变量执行notify后会释放掉锁。
+```cpp
+bool pop(job_type& x)//consumer
+{
+	lock_type lock(m_mutex);
+
+//条件变量被通知后，挂起的线程就被唤醒，但是唤醒也有可能是假唤醒，或者是因为超时等异常情况
+//所以被唤醒的线程仍要检查条件是否满足，所以 wait 是放在条件循环里面
+
+	while(m_queue.empty() && !m_stop_flag)
+	{
+		m_hasJob.wait(m_mutex);// stop的时候，此处引发的等待会notify_all被取消
+	}
+
+	if(m_stop_flag)return false;
+		
+	x = m_queue.front();
+	m_queue.pop_front();
+	return true;
+}
+      
+bool try_push(const job_type &x)//producer
+{
+	try_lock_type lock(m_mutex);
+	if(!lock.owns_lock())
+		return false;
+
+	m_queue.push_back(x);
+	++m_unfinished_tasks;
+	m_hasJob.notify_one();//此时本线程持有锁，启动pop里的while循环，唤醒线程
+	
+	return true;
+}
+
+```
 
 
 
